@@ -25,7 +25,7 @@ Skills
   * Reinforcement Learning 
 * ROS/ROS2 
 
-For more detail, please read my [Resume](files/resume-photo.pdf).
+For more detail, please read my [Resume](/files/resume-photo.pdf).
 
 Publications
 ======
