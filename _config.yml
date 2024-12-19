@@ -21,7 +21,7 @@ repository               : "kaln27/kaln27.github.io"
 #               Additional customization can be done by editing /_includes/author-profile.html
 author:
   # Biographic information
-  avatar           : "self.jpg"
+  avatar           : "me.jpg"
   name             : "Juncheng Liao"
   pronouns         : # example: "she/her"  
   bio              : "A student at HIT majoring intelligent vehicle engineering"
