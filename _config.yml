@@ -11,7 +11,7 @@ locale                   : "en-US"
 title                    : "Juncheng Liao"
 title_separator          : "-"
 name                     : &name "Juncheng Liao"
-description              : &description "personal description"
+description              : &description "Juncheng Liao — software engineering graduate student working on multimodal LLMs, efficient inference, and continual learning."
 url                      : https://kaln27.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "kaln27/kaln27.github.io"
@@ -21,14 +21,14 @@ repository               : "kaln27/kaln27.github.io"
 #               Additional customization can be done by editing /_includes/author-profile.html
 author:
   # Biographic information
-  avatar           : "me.jpg"
+  avatar           : "ghibli-avatar.png"
   name             : "Juncheng Liao"
   pronouns         : # example: "she/her"  
-  bio              : "A student at HIT majoring intelligent vehicle engineering"
-  location         : "China"
-  employer         : "Harbin Institude of Technology"
+  bio              : "Master's student in Software Engineering at Zhejiang University"
+  location         : "Hangzhou, China"
+  employer         : "Zhejiang University"
   uri              : # URL
-  email            : "jc.liau@outlook.com" 
+  email            : "jcliao@zju.edu.cn"
 
   # Academic websites
   arxiv            : # URL - Update with the correct link to your profile
@@ -86,7 +86,7 @@ publication_category:
 teaser                   :  # filename of teaser fallback teaser image placed in /images/, .e.g. "500x300.png"
 breadcrumbs              : false # true, false (default)
 words_per_minute         : 160
-future                   : true
+future                   : false
 read_more                : "disabled" # if enabled, adds "Read more" links to excerpts
 talkmap_link             : false #change to true to add link to talkmap on talks page
 comments:

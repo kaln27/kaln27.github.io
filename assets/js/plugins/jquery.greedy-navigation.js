@@ -18,16 +18,20 @@ function updateNav() {
 
   // The visible list is overflowing the nav
   if($vlinks.width() > availableSpace) {
+    var $movableLinks = $vlinks.children('*:not(.masthead__menu-item--lg)');
 
-    // Record the width of the list
-    breaks.push($vlinks.width());
+    // Stop when only the site title remains; it cannot be moved to the menu.
+    if($movableLinks.length > 0) {
+      // Record the width of the list
+      breaks.push($vlinks.width());
 
-    // Move item to the hidden list
-    $vlinks.children('*:not(.masthead__menu-item--lg)').last().prependTo($hlinks);
+      // Move item to the hidden list
+      $movableLinks.last().prependTo($hlinks);
 
-    // Show the dropdown btn
-    if($btn.hasClass('hidden')) {
-      $btn.removeClass('hidden');
+      // Show the dropdown btn
+      if($btn.hasClass('hidden')) {
+        $btn.removeClass('hidden');
+      }
     }
 
   // The visible list is not overflowing
@@ -52,7 +56,10 @@ function updateNav() {
   $btn.attr("count", breaks.length);
 
   // Recur if the visible list is still overflowing the nav
-  if($vlinks.width() > availableSpace) {
+  if(
+    $vlinks.width() > availableSpace &&
+    $vlinks.children('*:not(.masthead__menu-item--lg)').length > 0
+  ) {
     updateNav();
   }
 
