@@ -7,10 +7,11 @@ excerpt: 'AWARe uses activation-based parameter importance to preserve prior mul
 date: 2026-01-01
 venue: 'EMNLP 2026 Main Conference'
 paperurl: '/files/aware-paper.pdf'
+projecturl: 'https://aware.jcliao.net/'
 citation: 'Juncheng Liao, Jinfan Lv, Guoming Wang, Jupeng Zheng, Ling Xiao, and Siliang Tang. (2026). &quot;AWARe: Mitigating Catastrophic Forgetting via Activation-Weighted Adaptive REtention.&quot; <i>EMNLP 2026 Main Conference</i>.'
 ---
 
-<p><strong>Authors:</strong> Juncheng Liao<sup>1</sup>, Jinfan Lv<sup>2</sup>, Guoming Wang<sup>1,†</sup>, Jupeng Zheng<sup>3,†</sup>, Ling Xiao<sup>4</sup>, and Siliang Tang<sup>1</sup>.</p>
+<p><strong>Authors:</strong> <strong>Juncheng Liao</strong><sup>1</sup>, Jinfan Lv<sup>2</sup>, Guoming Wang<sup>1,†</sup>, Jupeng Zheng<sup>3,†</sup>, Ling Xiao<sup>4</sup>, and Siliang Tang<sup>1</sup>.</p>
 
 <p><sup>†</sup>Corresponding authors: <a href="mailto:NB21013@zju.edu.cn">Guoming Wang</a> and <a href="mailto:zhengjp8@mail.sysu.edu.cn">Jupeng Zheng</a>.</p>
 

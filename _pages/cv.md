@@ -21,7 +21,7 @@ School of Automotive Engineering · Sep 2021 – Jun 2025
 Research
 ======
 
-**AWARe: Mitigating Catastrophic Forgetting via Activation-Weighted Adaptive REtaining**
+**[AWARe: Mitigating Catastrophic Forgetting via Activation-Weighted Adaptive REtention](https://aware.jcliao.net/)**
 
 - Studied catastrophic forgetting in multimodal large language models.
 - Estimated parameter importance from activation distributions and retained high-importance weights during continual learning.
@@ -38,10 +38,16 @@ Experience
 Open-source Contributions
 ======
 
+### Merged PRs
+
 - **vLLM:** added FP8 GEMM kernel support for NVIDIA Blackwell GPUs ([PR #17280](https://github.com/vllm-project/vllm/pull/17280)).
 - **SGLang:** added FP8 GEMM kernel support for NVIDIA Blackwell GPUs ([PR #9403](https://github.com/sgl-project/sglang/pull/9403)).
 - **VeRL:** added video-training support using vLLM for rollout ([PR #3928](https://github.com/volcengine/verl/pull/3928)).
 - **Transformers:** added GLM-4.1V training support ([PR #39199](https://github.com/huggingface/transformers/pull/39199)).
+
+### Unmerged PRs
+
+- **SGLang:** proposed a fix to compressed-tensors quantization ignore handling for vision-language model QKV layers ([open PR #9596](https://github.com/sgl-project/sglang/pull/9596)).
 
 Skills
 ======
