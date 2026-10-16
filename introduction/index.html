@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="zh-Hans" class="intro-document">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>廖俊程 · 研究与项目</title>
+  <meta name="description" content="廖俊程的教育背景、研究成果和工程项目：多模态学习、高效推理与具身智能。">
+  <meta name="theme-color" content="#edf3e8">
+  <link rel="icon" href="../assets/pixel-cat.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/styles.css">
+  <link rel="stylesheet" href="../assets/introduction.css">
+  <script src="../assets/site.js" defer></script>
+</head>
+<body class="introduction-page">
+  <a class="skip-link" href="#main">跳转到正文</a>
+  <div class="page">
+    <nav class="intro-navigation" aria-label="页面导航"><a href="../">← 学术主页</a><em>introduction</em><a href="mailto:jcliao@zju.edu.cn">jcliao@zju.edu.cn</a></nav>
+    <main id="main">
+      <header class="intro-header">
+        <div>
+          <h1>廖俊程 <span>Juncheng Liao</span></h1>
+          <p class="intro-affiliation">浙江大学 · 软件工程硕士</p>
+          <p class="intro-focus">多模态学习 · 高效推理 · 具身智能</p>
+          <ul class="intro-highlights"><li><strong>AWARe</strong><span>第一作者 · EMNLP 2026 Main</span></li><li><strong>OmniKey</strong><span>第二作者 · AAAI 2027 在投</span></li></ul>
+        </div>
+        <figure class="intro-portrait"><img src="../assets/juncheng-liao.png" width="810" height="1140" alt="廖俊程的照片" fetchpriority="high"></figure>
+      </header>
+
+      <div class="intro-layout">
+        <aside class="intro-contents"><nav aria-label="内容导航"><a href="#background"><span>01</span> 教育背景</a><a href="#research"><span>02</span> 研究工作</a><a class="intro-subnav" href="#aware">AWARe</a><a class="intro-subnav" href="#omnikey">OmniKey</a><a href="#internship"><span>03</span> 训练与推理实践</a><a href="#robotics"><span>04</span> 具身智能实践</a><a href="#open-source"><span>05</span> 开源贡献</a><a href="#engineering"><span>06</span> 工程基础</a><a href="#skills"><span>07</span> 专业技能</a></nav></aside>
+
+        <div class="intro-body">
+          <section class="intro-section" id="background" aria-labelledby="background-title">
+            <div class="intro-section-heading"><span aria-hidden="true">01</span><h2 id="background-title">教育背景</h2></div>
+            <article class="intro-education"><img src="../assets/zhejiang-university.png" width="1024" height="1024" alt="浙江大学校徽" loading="lazy"><div><h3>浙江大学</h3><p>软件学院 · 软件工程硕士 · 推免</p><p class="intro-muted">2025.09 – 2028.06（预计）</p></div><p class="intro-grade">89.4<span>GPA / 100</span></p></article>
+            <article class="intro-education"><img src="../assets/harbin-institute-of-technology.png" width="1024" height="924" alt="哈尔滨工业大学校徽" loading="lazy"><div><h3>哈尔滨工业大学</h3><p>汽车工程学院 · 智能车辆工程本科</p><p class="intro-muted">2021.09 – 2025.06</p></div><p class="intro-grade">88.0<span>GPA / 100</span></p></article>
+          </section>
+
+          <section class="intro-section" id="research" aria-labelledby="research-title">
+            <div class="intro-section-heading"><span aria-hidden="true">02</span><h2 id="research-title">多模态模型研究</h2></div>
+            <article class="intro-project" id="aware">
+              <div class="intro-project-heading"><h3>AWARe：基于激活重要性缓解灾难性遗忘</h3><p>第一作者 · EMNLP 2026 Main</p></div>
+              <p class="full-paper-title">Mitigating Catastrophic Forgetting via Activation-Weighted Adaptive REtention</p>
+              <dl class="project-brief"><dt>研究问题</dt><dd>多模态大语言模型在学习新任务时，已有知识与能力退化。</dd><dt>核心方法</dt><dd>利用激活值估计参数重要性，选择性冻结高重要性参数，更新其余参数以适应新任务。</dd></dl>
+              <figure class="intro-research-figure"><a href="../files/aware-method-overview.pdf"><img src="../assets/aware-method-overview.png" width="3000" height="1418" alt="AWARe 方法图：激活加权分析、重要参数筛选和约束微调" loading="lazy"></a><figcaption>先分析激活重要性，再冻结高重要性参数，对其余参数进行微调。</figcaption></figure>
+              <div class="intro-resource-links"><a href="https://aware.jcliao.net/">论文主页 ↗</a><a href="../files/aware-paper.pdf">论文 PDF ↗</a><a href="https://github.com/kaln27/AWARe">代码 ↗</a><button class="citation-copy" type="button" data-copy-citation="aware" aria-label="复制 AWARe 的 BibTeX"><span data-copy-label>BibTeX</span> <span aria-hidden="true">⧉</span></button></div>
+            </article>
+
+            <article class="intro-project" id="omnikey">
+              <div class="intro-project-heading"><h3>OmniKey：按表征生命周期压缩视听 Token</h3><p>第二作者 · AAAI 2027（在投）</p></div>
+              <p class="full-paper-title">Lifecycle-Aware Audiovisual Token Compression for Omni-Modal Large Language Models</p>
+              <dl class="project-brief"><dt>研究问题</dt><dd>长音视频输入带来较高的推理计算量与 KV 缓存开销。</dd><dt>核心方法</dt><dd>基于截断矩阵熵分析表征生命周期，分阶段压缩音视频 Token，保留时序与跨模态信息。</dd></dl>
+              <figure class="intro-research-figure"><button class="research-figure-button" type="button" data-figure="../assets/omnikey-method-overview.png" data-title="OmniKey · 方法总览" aria-label="放大 OmniKey 主图"><img src="../assets/omnikey-method-overview.png" width="2030" height="714" alt="OmniKey 主图：浅层保留视听信息，中层进行对齐感知的渐进选择，深层退出音视频 Token。" loading="lazy"></button><figcaption>浅层保留视听信息，中层渐进选择，深层退出。<span class="figure-zoom-hint">点击主图放大 ↗</span></figcaption></figure>
+              <ol class="intro-method-list"><li><strong>分块去冗余：</strong>压缩音视频分块内的冗余信息，保留时序信息。</li><li><strong>渐进剪枝：</strong>使用 Key 范数倒数排序 Token，在中间层逐步压缩。</li><li><strong>深层退出：</strong>在表征生命周期后期退出音视频 Token。</li></ol>
+              <p class="intro-method-note">无需训练 · 兼容 FlashAttention</p>
+              <dl class="intro-results"><div><dt>音视频 Token 保留</dt><dd>25%</dd></div><div><dt>平均性能保留</dt><dd>98.6%</dd></div><div><dt>预填充加速</dt><dd>3.44×</dd></div><div><dt>峰值显存降低</dt><dd>4.55<span>GiB</span></dd></div></dl>
+              <p class="intro-evidence-note">以上结果基于 Qwen2.5-Omni-7B。98.6% 为四项基准的平均性能保留比例；3.44× 为 WorldSense 上的解码器预填充加速。显存降低量相对于完整 Token 输入。</p>
+              <div class="intro-resource-links"><a href="../publication/omnikey/">研究详情 ↗</a></div>
+            </article>
+          </section>
+
+          <section class="intro-section" id="internship" aria-labelledby="internship-title">
+            <div class="intro-section-heading"><span aria-hidden="true">03</span><h2 id="internship-title">训练与推理工程</h2></div>
+            <div class="employer-heading"><img class="company-logo" src="../assets/uniubi-logo.svg" width="94" height="20" alt="Uni-Ubi 公司标志" loading="lazy"><div class="intro-project-heading"><h3>Uni-Ubi · 算法实习生</h3><p>2025.04 – 至今</p></div></div>
+            <p class="intro-context">应用场景：工地安全检测，多模态模型训练与量化部署。</p>
+            <h4>多模态训练与视频 Rollout</h4>
+            <ul><li>使用 LLaMA Factory 微调 Qwen2.5-VL 和 MIMO-VL-7B，面向工地安全检测场景。</li><li>基于 SFT 模型使用 VeRL 进行强化学习，以 LLM-as-a-judge 参与奖励评分。</li><li>定位并修复 VeRL 的视频训练问题，适配以 vLLM 作为 Rollout 的视频训练链路，并贡献相关开源代码。</li></ul>
+            <h4>NVFP4 量化部署</h4>
+            <p>定位并修复早期 vLLM 的 NVFP4 支持缺陷，跑通量化部署流程，为 KV Cache 和更长上下文释放显存空间。</p>
+            <dl class="intro-results intro-results--pair"><div><dt>吞吐率提升（相对 FP8）</dt><dd>约 1.5×</dd></div><div><dt>显存占用降低（相对 FP8）</dt><dd>30%–40%</dd></div></dl>
+            <p class="intro-evidence-note">实习项目测试结果，模型性能基本保持不变。具体收益随硬件、模型与部署配置变化。</p>
+          </section>
+
+          <section class="intro-section" id="robotics" aria-labelledby="robotics-title">
+            <div class="intro-section-heading"><span aria-hidden="true">04</span><h2 id="robotics-title">具身智能实践</h2></div>
+            <article class="intro-project"><h3>π0.5 在松灵 nero 机械臂上的部署</h3><ul><li><strong>数据采集：</strong>使用主从臂采集 50 条 pick and place 数据。</li><li><strong>训练部署：</strong>完成环境搭建、π0.5 模型训练与机械臂部署推理。</li><li><strong>验证：</strong>在所用机械臂上开展泛化验证。</li></ul></article>
+            <article class="intro-project"><h3>机械臂按电梯按钮：视觉定位与闭环校正</h3><ol class="intro-method-list"><li><strong>目标定位：</strong>输入相机图像与楼层号，Qwen3-VL-30B-A3B 输出目标按钮 bbox。</li><li><strong>三维标定：</strong>结合 RealSense 和手眼标定，将相机坐标转换到机械臂基座坐标。</li><li><strong>闭环执行：</strong>悬停后通过模板匹配校正位置，误差可接受后执行按压。</li></ol><p class="intro-method-note">手眼标定 · 机械臂 SDK · FK / IK</p></article>
+            <article class="intro-project"><h3>机械臂配合底盘开门：模仿学习与 PPO</h3><ol class="intro-method-list"><li><strong>数据：</strong>在 Isaac Sim 中使用门把手位置、旋转轴与角度，生成机械臂与底盘协同开门轨迹，保存为 LeRobot 格式。</li><li><strong>策略：</strong>改造 ACT，输出动作均值与方差，供后续强化学习使用。</li><li><strong>优化：</strong>通过 PPO 和稀疏二值奖励，在不同形状和材质的门上开展仿真评估。</li></ol><p class="intro-callout">仿真综合成功率约 <strong>85%</strong> · 尚未进行真机验证</p></article>
+          </section>
+
+          <section class="intro-section" id="open-source" aria-labelledby="open-source-title">
+            <div class="intro-section-heading"><span aria-hidden="true">05</span><h2 id="open-source-title">开源贡献</h2></div>
+            <div class="intro-contributions">
+              <article>
+                <div class="intro-contribution-repo"><h3>vLLM <a href="https://github.com/vllm-project/vllm/pull/17280">#17280 ↗</a></h3><span class="intro-pr-status">已合并</span></div>
+                <div class="intro-contribution-details">
+                  <h4>RTX 50 系列的 FP8 推理算子适配</h4>
+                  <p><strong>问题：</strong>Blackwell GeForce（sm120）运行 FP8 模型时，沿用 sm100 Kernel 会触发内部错误。</p>
+                  <p><strong>工作：</strong>新增面向 sm120 的 CUTLASS W8A8 FP8 GEMM 支持，补齐新架构上的量化矩阵乘法路径。</p>
+                  <p><strong>验证：</strong>在 RTX 5070 Ti 上运行由 llm-compressor 量化的 Qwen2.5-VL-7B-Instruct-FP8-Dynamic，验证模型可以正常推理。</p>
+                </div>
+              </article>
+              <article>
+                <div class="intro-contribution-repo"><h3>SGLang <a href="https://github.com/sgl-project/sglang/pull/9403">#9403 ↗</a></h3><span class="intro-pr-status">已合并</span></div>
+                <div class="intro-contribution-details">
+                  <h4>sm120 的 CUTLASS FP8 GEMM 支持</h4>
+                  <p><strong>问题：</strong>部分 FP8-Dynamic 模型在新显卡上加载失败；已有方案通过回退到 Triton Kernel 绕过问题。</p>
+                  <p><strong>工作：</strong>在 sgl-kernel 中实现 sm120 的 CUTLASS FP8 GEMM，并添加对应的 Kernel 路由条件。</p>
+                  <p><strong>作用：</strong>为 RTX 50 系列补齐 CUTLASS FP8 推理路径，让相关量化模型可使用适配该架构的算子实现。</p>
+                </div>
+              </article>
+              <article>
+                <div class="intro-contribution-repo"><h3>SGLang <a href="https://github.com/sgl-project/sglang/pull/9596">#9596 ↗</a></h3><span class="intro-pr-status">修复提案</span></div>
+                <div class="intro-contribution-details">
+                  <h4>视觉层量化忽略规则的名称匹配修复</h4>
+                  <p><strong>问题：</strong>compressed-tensors 配置中的视觉层名 <code>attn.qkv</code> 与框架内的 <code>attn.qkv_proj</code> 不一致，导致本应跳过量化的层仍被量化，影响图像理解输出。</p>
+                  <p><strong>工作：</strong>将模型类型传入量化配置，根据模型类型适配视觉注意力层的 ignore 名称，修正配置与实际模块之间的匹配。</p>
+                  <p><strong>范围：</strong>提案覆盖 Qwen2-VL、Qwen2.5-VL、InternVL 与 GLM4V，目标是保持原量化配置对视觉层的精度选择。</p>
+                </div>
+              </article>
+              <article>
+                <div class="intro-contribution-repo"><h3>VeRL <a href="https://github.com/volcengine/verl/pull/3928">#3928 ↗</a></h3><span class="intro-pr-status">已合并</span></div>
+                <div class="intro-contribution-details">
+                  <h4>视频 Rollout 的元数据传递与预处理适配</h4>
+                  <p><strong>问题：</strong>以 vLLM 作为 Rollout 后端时，视频元数据未完整传递，导致视频请求报错；预处理还将图像 patch size 固定为 14。</p>
+                  <p><strong>工作：</strong>补齐视频及其元数据到处理器和 vLLM 的传递，将 <code>image_patch_size</code> 改为可配置参数。</p>
+                  <p><strong>作用：</strong>修复视频强化学习训练链路，并兼容 Qwen2.5-VL（patch size 14）与 Qwen3-VL（patch size 16）的预处理差异。</p>
+                </div>
+              </article>
+              <article>
+                <div class="intro-contribution-repo"><h3>Transformers <a href="https://github.com/huggingface/transformers/pull/39199">#39199 ↗</a></h3><span class="intro-pr-status">已合并</span></div>
+                <div class="intro-contribution-details">
+                  <h4>GLM-4.1V 在 VeRL 中的训练兼容性修复</h4>
+                  <p><strong>问题：</strong>使用 VeRL 对 GLM-4.1V 进行 GRPO 训练时，框架将检查点转换映射按字典处理，而模型中的值为 <code>None</code>，导致程序中断。</p>
+                  <p><strong>工作：</strong>将 <code>_checkpoint_conversion_mapping</code> 统一为空字典，同步修改模型的模块化定义与生成文件。</p>
+                  <p><strong>作用：</strong>消除模型与训练框架之间的类型不兼容，支持该训练链路正常读取模型的检查点转换配置。</p>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section class="intro-section" id="engineering" aria-labelledby="engineering-title">
+            <div class="intro-section-heading"><span aria-hidden="true">06</span><h2 id="engineering-title">工程项目与系统基础</h2></div>
+            <article class="intro-project"><div class="intro-project-heading"><h3>TinyChat LLMs 部署</h3><p>2025.02 – 2025.04</p></div><ul><li>通过循环重排、SIMD 和并行化优化 matmul。</li><li>学习 RoPE、RMSNorm、GQA 的 C++ 实现，实现 4 bit 线性量化与矩阵乘法。</li><li>学习 AWQ、SmoothQuant 等量化算法。</li></ul></article>
+            <article class="intro-project"><div class="intro-project-heading"><h3>needle 深度学习框架开发</h3><p>2024.07 – 2024.08</p></div><ul><li>在计算图上实现反向模式自动微分。</li><li>实现初始化、优化器、常用网络和 DataLoader。</li><li>用 CUDA 实现 NDArray 及 reshape、transpose、multiply 等基础运算。</li></ul></article>
+            <article class="intro-project"><div class="intro-project-heading"><h3>基于 Jetson 的自动驾驶无人车</h3><p>2023.11 – 2024.02</p></div><ul><li>STM32F407、FreeRTOS：底盘开发与 CAN 协议并发解析、反馈。</li><li>Jetson AGX Xavier：Linux 环境下的 CAN 数据处理。</li><li>RealSense、ROS 2：视觉 SLAM、3D 重构与自主导航。</li></ul></article>
+            <h3 class="intro-subheading">公开课程学习</h3><p class="intro-evidence-note">自主学习，相关课程项目均独立完成。</p>
+            <ul class="intro-courses"><li><a href="https://inst.eecs.berkeley.edu/~cs61c/sp22/">UCB CS 61C</a><span>计算机体系结构</span></li><li><a href="https://www.cs.cmu.edu/~213/">CMU 15-213 / 15-513</a><span>计算机系统导论</span></li><li><a href="https://pdos.csail.mit.edu/6.1810/2023/index.html">MIT 6.1810</a><span>操作系统工程</span></li><li><a href="https://dlsyscourse.org/lectures/">CMU 10-414 / 714</a><span>深度学习系统</span></li></ul>
+          </section>
+
+          <section class="intro-section" id="skills" aria-labelledby="skills-title">
+            <div class="intro-section-heading"><span aria-hidden="true">07</span><h2 id="skills-title">专业技能</h2></div>
+            <dl class="intro-skills"><dt>编程与开发</dt><dd>熟悉现代 Python 开发，使用 uv 管理项目与依赖、Ruff 进行检查和格式化；了解 C / C++。</dd><dt>模型训练与推理</dt><dd>使用 LLaMA Factory、VeRL 进行模型训练，使用 vLLM、SGLang 进行模型推理。</dd><dt>算子与效率优化</dt><dd>有 Triton 算子开发经验，了解 CUDA 编程，熟悉 FlashAttention 算子原理。</dd><dt>机器人系统</dt><dd>熟悉 ROS 2 开发与集成，涉及导航、感知和控制。</dd><dt>工程工具</dt><dd>使用 Git、Docker 管理项目，使用 LaTeX 编写文档，并使用 Codex、Claude Code 辅助开发。</dd></dl>
+          </section>
+        </div>
+      </div>
+    </main>
+    <footer><span>廖俊程 · 研究与项目</span><a href="../">返回学术主页 ↑</a></footer>
+  </div>
+  <dialog class="figure-dialog" aria-labelledby="figure-title"><div class="dialog-toolbar"><h2 id="figure-title">研究主图</h2><button type="button" data-close-dialog aria-label="关闭主图">关闭 <span aria-hidden="true">×</span></button></div><img class="large-figure" width="2030" height="714" alt=""><a class="figure-download" href="../assets/omnikey-method-overview.png">打开原图 ↗</a></dialog>
+</body>
+</html>

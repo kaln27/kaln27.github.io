@@ -10,7 +10,8 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="Juncheng Liao · 廖俊程">
   <meta property="og:description" content="Multimodal models, continual learning, and efficient AI systems. Master's student at Zhejiang University.">
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/pixel-cat.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/juncheng-liao.png" as="image">
   <link rel="stylesheet" href="assets/styles.css">
   <script src="assets/site.js" defer></script>
 </head>
@@ -22,7 +23,9 @@
       <a href="#research">Research</a>
       <a href="#publications">Publications</a>
       <a href="#opensource">Open Source</a>
+      <a href="#education">Education</a>
       <a href="#experience">Experience</a>
+      <a class="introduction-link" href="introduction/" target="_blank" rel="noopener"><em>introduction</em></a>
     </nav>
 
     <main id="main">
@@ -39,8 +42,11 @@
           </div>
         </div>
         <figure class="portrait">
-          <img src="assets/cat-avatar.png" width="1215" height="1215" alt="Juncheng's orange-and-white cat avatar" fetchpriority="high">
-          <figcaption>Hangzhou, China</figcaption>
+          <button class="portrait-toggle" type="button" data-portrait-toggle data-portrait-src="assets/juncheng-liao.png" aria-label="Show personal portrait" aria-pressed="false" title="Switch to my photo">
+            <img src="assets/cat-avatar.png" width="1215" height="1215" alt="Juncheng's orange-and-white cat avatar" fetchpriority="high">
+            <span class="portrait-switch" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h14l-3-3M20 16H6l3 3"/></svg></span>
+          </button>
+          <figcaption>Hangzhou, China<span class="portrait-hint">Click to switch</span></figcaption>
         </figure>
       </header>
 
@@ -57,7 +63,7 @@
         <div class="section-heading"><h2 id="publications-title">Publications</h2><span class="section-aside">Multimodal learning &amp; retention</span></div>
         <article class="paper" id="aware">
           <div class="paper-media">
-            <button class="figure-button" type="button" data-figure="assets/aware-method-overview.png" data-title="AWARe · Method overview" aria-label="Enlarge the AWARe method overview">
+            <button class="figure-button" type="button" data-figure="assets/aware-method-overview.png" data-original="files/aware-method-overview.pdf" data-title="AWARe · Method overview" aria-label="Enlarge the AWARe method overview">
               <img src="assets/aware-method-overview.png" width="3000" height="1418" alt="AWARe profiles activation-based parameter importance, freezes high-saliency weights, and fine-tunes the remaining weights.">
               <span class="figure-caption">Method overview <span aria-hidden="true">↗</span></span>
             </button>
@@ -69,9 +75,26 @@
             <p class="paper-summary">Activation-based importance identifies which parameters to retain during fine-tuning, preserving prior multimodal capabilities while leaving the model flexible enough to learn new tasks.</p>
             <div class="publication-actions">
               <span class="venue">EMNLP 2026 · Main</span>
-              <div class="paper-links"><a href="files/aware-paper.pdf">Paper <span aria-hidden="true">↗</span></a><a href="https://aware.jcliao.net/">Project <span aria-hidden="true">↗</span></a><a href="https://github.com/kaln27/AWARe">Code <span aria-hidden="true">↗</span></a><a href="files/aware.bib" download>BibTeX <span aria-hidden="true">↓</span></a></div>
+              <div class="paper-links"><a href="files/aware-paper.pdf">Paper <span aria-hidden="true">↗</span></a><a href="https://aware.jcliao.net/">Project <span aria-hidden="true">↗</span></a><a href="https://github.com/kaln27/AWARe">Code <span aria-hidden="true">↗</span></a><button class="citation-copy" type="button" data-copy-citation="aware" aria-label="Copy AWARe BibTeX"><span data-copy-label>BibTeX</span> <span aria-hidden="true">⧉</span></button></div>
             </div>
             <p class="author-note"><sup>†</sup> Corresponding authors.</p>
+          </div>
+        </article>
+
+        <article class="paper" id="omnikey">
+          <div class="paper-media">
+            <button class="figure-button" type="button" data-figure="assets/omnikey-method-overview.png" data-title="OmniKey · Method overview" aria-label="Enlarge the OmniKey method overview">
+              <img src="assets/omnikey-method-overview.png" width="2030" height="714" alt="OmniKey overview: shallow-layer audiovisual retention, progressive alignment-aware selection in middle layers, and late-layer audiovisual exit." loading="lazy">
+              <span class="figure-caption">Method overview <span aria-hidden="true">↗</span></span>
+            </button>
+          </div>
+          <div class="paper-body">
+            <div class="paper-topic">Omni-modal LLMs · Efficient inference</div>
+            <h3><a href="publication/omnikey/">OmniKey: Lifecycle-Aware Audiovisual Token Compression for Omni-Modal Large Language Models</a></h3>
+            <p class="authors"><strong>Juncheng Liao</strong> · Second author</p>
+            <p class="paper-summary">A training-free framework combines audiovisual deduplication, Key-alignment-guided progressive pruning, and late-layer token exit to reduce computation and KV-cache overhead. Compatible with FlashAttention.</p>
+            <p class="paper-summary">On Qwen2.5-Omni-7B, retaining 25% of audiovisual tokens preserves 98.6% of average performance across four benchmarks, with 3.44× decoder prefill speedup on WorldSense and 4.55 GiB lower peak memory than the full-token input.</p>
+            <div class="publication-actions"><span class="venue venue--review">AAAI 2027 · Under review</span><div class="paper-links"><a href="publication/omnikey/">Research details <span aria-hidden="true">↗</span></a></div></div>
           </div>
         </article>
       </section>
@@ -88,12 +111,18 @@
         <p class="additional-contribution">Also proposed a fix for compressed-tensors quantization ignore handling in vision-language QKV layers. <a href="https://github.com/sgl-project/sglang/pull/9596">SGLang #9596 <span aria-hidden="true">↗</span></a></p>
       </section>
 
-      <section class="experience section" id="experience" aria-labelledby="experience-title">
-        <div class="section-heading"><h2 id="experience-title">Education &amp; Experience</h2><a class="section-aside" href="cv/">Full CV <span aria-hidden="true">↗</span></a></div>
+      <section class="education section" id="education" aria-labelledby="education-title">
+        <div class="section-heading"><h2 id="education-title">Education</h2><a class="section-aside" href="cv/">Full CV <span aria-hidden="true">↗</span></a></div>
         <div class="experience-list">
-          <article class="experience-entry"><div class="entry-marker" aria-hidden="true">ZJU</div><div class="entry-copy"><h3>Zhejiang University</h3><p>Master's in Software Engineering</p><p class="entry-detail">School of Software Technology</p></div><p class="entry-date">Sep. 2025 – Jun. 2028 <span>(expected)</span></p></article>
-          <article class="experience-entry"><div class="entry-marker" aria-hidden="true">HIT</div><div class="entry-copy"><h3>Harbin Institute of Technology</h3><p>B.Eng. in Intelligent Vehicle Engineering</p><p class="entry-detail">School of Automotive Engineering</p></div><p class="entry-date">Sep. 2021 – Jun. 2025</p></article>
-          <article class="experience-entry"><div class="entry-marker work-marker" aria-hidden="true">U</div><div class="entry-copy"><h3>Uni-Ubi</h3><p>Algorithm Intern</p><p class="entry-detail">Multimodal fine-tuning, reinforcement learning, and model quantization.</p></div><p class="entry-date">Apr. 2025 – Sep. 2025</p></article>
+          <article class="experience-entry"><div class="school-logo"><img src="assets/zhejiang-university.png" width="1024" height="1024" alt="Zhejiang University emblem" loading="lazy"></div><div class="entry-copy"><h3>Zhejiang University</h3><p>Master's in Software Engineering</p><p class="entry-detail">School of Software Technology</p></div><p class="entry-date">Sep. 2025 – Jun. 2028 <span>(expected)</span></p></article>
+          <article class="experience-entry"><div class="school-logo"><img src="assets/harbin-institute-of-technology.png" width="1024" height="924" alt="Harbin Institute of Technology emblem" loading="lazy"></div><div class="entry-copy"><h3>Harbin Institute of Technology</h3><p>B.Eng. in Intelligent Vehicle Engineering</p><p class="entry-detail">School of Automotive Engineering</p></div><p class="entry-date">Sep. 2021 – Jun. 2025</p></article>
+        </div>
+      </section>
+
+      <section class="experience section" id="experience" aria-labelledby="experience-title">
+        <div class="section-heading"><h2 id="experience-title">Experience</h2></div>
+        <div class="experience-list">
+          <article class="experience-entry company-entry"><img class="company-logo" src="assets/uniubi-logo.svg" width="94" height="20" alt="Uni-Ubi company logo" loading="lazy"><div class="entry-copy"><h3>Uni-Ubi</h3><p>Algorithm Intern</p><p class="entry-detail">Multimodal training, quantized inference, and robotics.</p></div><p class="entry-date">Apr. 2025 – present</p></article>
         </div>
       </section>
     </main>

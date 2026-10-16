@@ -6,7 +6,7 @@
   <title>Curriculum Vitae · Juncheng Liao</title>
   <meta name="description" content="Juncheng Liao's education, research, experience, and open-source contributions.">
   <meta name="theme-color" content="#edf3e8">
-  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../assets/pixel-cat.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../assets/styles.css">
   <script src="../assets/site.js" defer></script>
 </head>
@@ -23,16 +23,17 @@
       </header>
       <section class="document-section" aria-labelledby="education-title">
         <h2 id="education-title">Education</h2>
-        <article class="experience-entry"><div class="entry-marker" aria-hidden="true">ZJU</div><div class="entry-copy"><h3>Zhejiang University</h3><p>Master's in Software Engineering</p><p class="entry-detail">School of Software Technology</p></div><p class="entry-date">Sep. 2025 – Jun. 2028 <span>(expected)</span></p></article>
-        <article class="experience-entry"><div class="entry-marker" aria-hidden="true">HIT</div><div class="entry-copy"><h3>Harbin Institute of Technology</h3><p>B.Eng. in Intelligent Vehicle Engineering</p><p class="entry-detail">School of Automotive Engineering</p></div><p class="entry-date">Sep. 2021 – Jun. 2025</p></article>
+        <article class="experience-entry"><div class="school-logo"><img src="../assets/zhejiang-university.png" width="1024" height="1024" alt="Zhejiang University emblem" loading="lazy"></div><div class="entry-copy"><h3>Zhejiang University</h3><p>Master's in Software Engineering</p><p class="entry-detail">School of Software Technology</p></div><p class="entry-date">Sep. 2025 – Jun. 2028 <span>(expected)</span></p></article>
+        <article class="experience-entry"><div class="school-logo"><img src="../assets/harbin-institute-of-technology.png" width="1024" height="924" alt="Harbin Institute of Technology emblem" loading="lazy"></div><div class="entry-copy"><h3>Harbin Institute of Technology</h3><p>B.Eng. in Intelligent Vehicle Engineering</p><p class="entry-detail">School of Automotive Engineering</p></div><p class="entry-date">Sep. 2021 – Jun. 2025</p></article>
       </section>
       <section class="document-section" aria-labelledby="research-title">
         <h2 id="research-title">Research &amp; Publications</h2>
         <article class="paper"><h3><a href="../publication/2026-01-01-aware-catastrophic-forgetting/">AWARe: Mitigating Catastrophic Forgetting via Activation-Weighted Adaptive REtention</a></h3><p class="authors"><strong>Juncheng Liao</strong>, Jinfan Lv, Guoming Wang<sup>†</sup>, Jupeng Zheng<sup>†</sup>, Ling Xiao, and Siliang Tang</p><p>EMNLP 2026 Main Conference. <sup>†</sup> Corresponding authors.</p><ul><li>Studied catastrophic forgetting in multimodal large language models.</li><li>Estimated parameter importance from activation distributions and retained high-importance weights during continual learning.</li></ul><div class="document-links"><a href="../files/aware-paper.pdf">Paper</a> · <a href="https://aware.jcliao.net/">Project</a> · <a href="https://github.com/kaln27/AWARe">Code</a></div></article>
+        <article class="paper cv-additional-paper"><h3><a href="../publication/omnikey/">OmniKey: Lifecycle-Aware Audiovisual Token Compression for Omni-Modal Large Language Models</a></h3><p class="authors"><strong>Juncheng Liao</strong> · Second author</p><p>AAAI 2027 submission, under review.</p><ul><li>Training-free audiovisual token compression using representation lifecycles, Key-alignment-guided progressive pruning, and late-layer token exit.</li><li>Retains 98.6% of average performance across four benchmarks with 25% audiovisual tokens on Qwen2.5-Omni-7B; 3.44× decoder prefill speedup on WorldSense, and 4.55 GiB lower peak memory relative to full-token input.</li></ul></article>
       </section>
       <section class="document-section" aria-labelledby="work-title">
         <h2 id="work-title">Experience</h2>
-        <h3>Uni-Ubi · Algorithm Intern</h3><p class="section-aside">Apr. 2025 – Sep. 2025</p>
+        <div class="employer-heading"><img class="company-logo" src="../assets/uniubi-logo.svg" width="94" height="20" alt="Uni-Ubi company logo" loading="lazy"><div><h3>Uni-Ubi · Algorithm Intern</h3><p class="section-aside">Apr. 2025 – present</p></div></div>
         <ul><li>Fine-tuned Qwen2.5-VL with LLaMA Factory for construction-site safety inspection.</li><li>Trained models with VeRL and designed LLM-as-a-judge reward functions.</li><li>Worked with vLLM and validated the NVFP4 quantization workflow.</li></ul>
       </section>
       <section class="document-section" aria-labelledby="contributions-title">

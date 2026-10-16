@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OmniKey · Juncheng Liao</title>
+  <meta name="description" content="OmniKey: Lifecycle-Aware Audiovisual Token Compression for Omni-Modal Large Language Models. AAAI 2027 submission, under review.">
+  <meta name="theme-color" content="#edf3e8">
+  <link rel="icon" href="../../assets/pixel-cat.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/styles.css">
+  <script src="../../assets/site.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="page cv-page">
+    <nav class="site-navigation" aria-label="Main navigation"><a href="../../">← Home</a><a href="../../#publications">Publications</a><a href="../../introduction/#omnikey" lang="zh-Hans">研究与项目</a></nav>
+    <main id="main">
+      <header class="document-header"><p class="paper-topic">AAAI 2027 · Under review</p><h1>OmniKey: Lifecycle-Aware Audiovisual Token Compression for Omni-Modal Large Language Models</h1><p class="authors"><strong>Juncheng Liao</strong> · Second author</p></header>
+      <figure class="publication-figure"><button class="research-figure-button" type="button" data-figure="../../assets/omnikey-method-overview.png" data-title="OmniKey · Method overview" aria-label="Enlarge the OmniKey method overview"><img src="../../assets/omnikey-method-overview.png" width="2030" height="714" alt="OmniKey overview: shallow-layer audiovisual retention, progressive alignment-aware selection in middle layers, and late-layer audiovisual exit."></button><figcaption>Lifecycle-aware audiovisual compression and progressive alignment-aware selection. Click the figure to enlarge.</figcaption></figure>
+      <section class="document-section" aria-labelledby="overview-title"><h2 id="overview-title">Overview</h2><p>OmniKey studies efficient inference for omni-modal large language models with long audiovisual inputs. It reduces computation and KV-cache overhead while retaining temporal and cross-modal information.</p><p>The training-free framework analyzes representation lifecycles using truncated matrix entropy and combines block-wise audiovisual deduplication, Key-alignment-guided progressive pruning, and late-layer token exit. Token ranking uses inverse Key norms, and the method is compatible with FlashAttention.</p></section>
+      <section class="document-section" aria-labelledby="results-title"><h2 id="results-title">Results</h2><ul><li><strong>25% audiovisual tokens retained</strong> on Qwen2.5-Omni-7B, retaining <strong>98.6% of average performance across four benchmarks</strong>.</li><li><strong>3.44× decoder prefill speedup</strong> on WorldSense.</li><li><strong>4.55 GiB lower peak memory usage</strong> relative to the full-token input.</li></ul><p class="section-aside">These figures refer to the reported experimental settings on Qwen2.5-Omni-7B.</p></section>
+      <section class="document-section" aria-labelledby="status-title"><h2 id="status-title">Publication status</h2><p>Submitted to AAAI 2027; currently under review.</p><p><a href="../../introduction/#omnikey" lang="zh-Hans">OmniKey：方法与实验 ↗</a></p></section>
+    </main>
+    <footer><span>Juncheng Liao · Zhejiang University</span><a href="../../#publications">Back to publications ↑</a></footer>
+  </div>
+  <dialog class="figure-dialog" aria-labelledby="figure-title"><div class="dialog-toolbar"><h2 id="figure-title">Research figure</h2><button type="button" data-close-dialog aria-label="Close figure">Close <span aria-hidden="true">×</span></button></div><img class="large-figure" width="2030" height="714" alt=""><a class="figure-download" href="../../assets/omnikey-method-overview.png">Open original figure ↗</a></dialog>
+</body>
+</html>

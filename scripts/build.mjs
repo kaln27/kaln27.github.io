@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const output = path.join(root, 'dist');
-const entries = ['index.html', '404.html', 'about.html', '.nojekyll', 'assets', 'files', 'cv', 'publication', 'about', 'publications', 'resume'];
+const entries = ['index.html', '404.html', 'about.html', '.nojekyll', 'assets', 'files', 'cv', 'introduction', 'publication', 'about', 'publications', 'resume'];
 
 async function validate(filename) {
   const info = await stat(filename);

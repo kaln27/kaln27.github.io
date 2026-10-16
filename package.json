@@ -1,8 +1,8 @@
 {
-  "name": "juncheng-liao-homepage-preview",
+  "name": "juncheng-liao-homepage",
   "version": "1.0.0",
   "private": true,
-  "description": "A local preview of Juncheng Liao's redesigned academic homepage",
+  "description": "Juncheng Liao's academic homepage, published with GitHub Pages",
   "type": "module",
   "scripts": {
     "dev": "node scripts/build.mjs && node scripts/serve.mjs",
