@@ -36,7 +36,8 @@ git diff --check
 - `publication/`: AWARe and OmniKey research details.
 - `assets/styles.css`: shared layout and styling.
 - `assets/introduction.css`: presentation page layout.
-- `assets/site.js`: repeatable cat / portrait toggle, enlarged research figures, BibTeX copy, navigation, and CV printing.
+- `assets/site.js`: enlarged research figures, BibTeX copy, navigation, and CV printing.
+- `assets/portrait.js`: a Canvas particle transition between the cat avatar and portrait, using their original image colors. Repeated clicks reverse the current transition. Resizing or leaving the page settles it immediately; reduced-motion preferences use a direct switch. It runs only on the homepage and requires no library or backend.
 - `files/`: AWARe paper, method figure PDF, and the supplied arXiv BibTeX entry.
 - `scripts/`: dependency-free build and local preview server.
 

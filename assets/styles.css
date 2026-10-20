@@ -37,11 +37,19 @@ sup { font-size: .7em; line-height: 0; }
 .portrait img { width: 205px; aspect-ratio: 1; object-fit: cover; border-radius: 8px; }
 .portrait-toggle { display: block; position: relative; padding: 0; border: 0; border-radius: 8px; background: transparent; cursor: pointer; }
 .portrait-toggle[aria-pressed="true"] img { object-position: center 12%; }
+.portrait-toggle[data-transitioning] > img { opacity: 0; }
+.portrait-particles { position: absolute; inset: -40px; width: calc(100% + 80px); height: calc(100% + 80px); z-index: 2; pointer-events: none; }
+.portrait-particles[hidden] { display: none; }
 .portrait-switch { display: grid; place-items: center; position: absolute; right: 8px; bottom: 8px; width: 27px; height: 27px; border: 1px solid #c5d7bc; border-radius: 5px; color: var(--forest); background: #f7faf3e8; }
+.portrait-switch { z-index: 3; transition: opacity .2s; }
+.portrait-toggle[data-transitioning] .portrait-switch { opacity: .55; }
 .portrait-switch svg { width: 17px; height: 17px; }
 .portrait-toggle:hover .portrait-switch { background: var(--surface); border-color: var(--accent); }
 .portrait figcaption { margin-top: 12px; text-align: center; font-size: 13px; color: var(--muted); letter-spacing: .02em; }
 .portrait-hint { display: block; margin-top: 3px; font-size: 11px; color: var(--muted); letter-spacing: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .portrait-switch { transition: none; }
+}
 .contact-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
 .contact-links a { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border: 1px solid #c5d7bc; border-radius: 5px; background: #e3eddd; font-size: 14px; line-height: 1.7; }
 .contact-links a:hover { background: #d9e6d2; text-decoration: none; }

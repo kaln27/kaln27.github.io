@@ -1,16 +1,3 @@
-const portraitToggle = document.querySelector('[data-portrait-toggle]');
-if (portraitToggle) {
-  const image = portraitToggle.querySelector('img');
-  const avatar = { src: image.getAttribute('src'), alt: image.alt };
-  portraitToggle.addEventListener('click', () => {
-    const showPortrait = portraitToggle.getAttribute('aria-pressed') !== 'true';
-    image.src = showPortrait ? portraitToggle.dataset.portraitSrc : avatar.src;
-    image.alt = showPortrait ? 'Portrait of Juncheng Liao' : avatar.alt;
-    portraitToggle.setAttribute('aria-pressed', String(showPortrait));
-    portraitToggle.title = showPortrait ? 'Switch back to my cat avatar' : 'Switch to my photo';
-  });
-}
-
 const figureDialog = document.querySelector('.figure-dialog');
 let figureTrigger;
 
