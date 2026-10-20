@@ -119,11 +119,11 @@ a.section-aside:hover { color: var(--accent); }
 .entry-date span { display: block; font-size: 11px; }
 footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 7px 20px; margin-top: 36px; padding: 20px 0 28px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
 footer a { color: inherit; }
-.homepage-footer { align-items: center; gap: 16px 24px; }
-.footer-meta { display: flex; flex-direction: column; gap: 3px; }
-.destroy-site-link { display: inline-flex; flex-shrink: 0; transition: transform .15s, box-shadow .15s; }
+.destroy-site-link { position: absolute; top: 20px; right: 24px; z-index: 5; display: inline-flex; transition: transform .15s, box-shadow .15s; }
 .destroy-site-link img { width: 180px; height: 40px; }
 .destroy-site-link:hover { transform: translateY(-2px); box-shadow: 0 4px 10px #263e3020; }
+@media (max-width: 1000px) { .site-navigation.home-navigation { padding-top: 78px; } }
+@media (max-width: 520px) { .destroy-site-link { top: 16px; right: 20px; } .site-navigation.home-navigation { padding-top: 72px; } }
 @media (prefers-reduced-motion: reduce) { .destroy-site-link { transition: none; } }
 .skip-link { position: fixed; top: -80px; left: 20px; z-index: 10; padding: 10px 16px; background: var(--surface); border: 1px solid var(--accent); }
 .skip-link:focus { top: 12px; }
@@ -240,7 +240,7 @@ body:has(dialog[open]) { overflow: hidden; }
 @media print {
   body { background: white; color: #222; font-size: 11pt; }
   .page { width: 100%; max-width: none; padding: 0; }
-  .site-navigation, .print-button, .skip-link, footer, dialog { display: none; }
+  .site-navigation, .print-button, .skip-link, .destroy-site-link, footer, dialog { display: none; }
   .document-header { padding-top: 0; }
   h1, h2, h3, a { color: #222; }
   .document-section { margin-top: 19px; }
