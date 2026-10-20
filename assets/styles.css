@@ -119,6 +119,12 @@ a.section-aside:hover { color: var(--accent); }
 .entry-date span { display: block; font-size: 11px; }
 footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 7px 20px; margin-top: 36px; padding: 20px 0 28px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
 footer a { color: inherit; }
+.homepage-footer { align-items: center; gap: 16px 24px; }
+.footer-meta { display: flex; flex-direction: column; gap: 3px; }
+.destroy-site-link { display: inline-flex; flex-shrink: 0; transition: transform .15s, box-shadow .15s; }
+.destroy-site-link img { width: 180px; height: 40px; }
+.destroy-site-link:hover { transform: translateY(-2px); box-shadow: 0 4px 10px #263e3020; }
+@media (prefers-reduced-motion: reduce) { .destroy-site-link { transition: none; } }
 .skip-link { position: fixed; top: -80px; left: 20px; z-index: 10; padding: 10px 16px; background: var(--surface); border: 1px solid var(--accent); }
 .skip-link:focus { top: 12px; }
 .figure-dialog { width: min(1200px, 94vw); max-height: 92vh; padding: 20px; border: 1px solid var(--line); border-radius: 8px; color: var(--ink); background: var(--surface); }
