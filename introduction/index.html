@@ -5,10 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>廖俊程 · 研究与项目</title>
   <meta name="description" content="廖俊程的教育背景、研究成果和工程项目：多模态学习、高效推理与具身智能。">
-  <meta name="theme-color" content="#edf3e8">
+  <meta name="theme-color" content="#faf9f5">
   <link rel="icon" href="../assets/pixel-cat.svg" type="image/svg+xml">
+  <link rel="preload" href="../assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../assets/styles.css">
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
   <link rel="stylesheet" href="../assets/introduction.css">
+  <script src="../assets/vendor/katex/katex.min.js" defer></script>
+  <script src="../assets/research-math.js" defer></script>
   <script src="../assets/site.js" defer></script>
 </head>
 <body class="introduction-page">
@@ -39,22 +43,134 @@
           <section class="intro-section" id="research" aria-labelledby="research-title">
             <div class="intro-section-heading"><span aria-hidden="true">02</span><h2 id="research-title">多模态模型研究</h2></div>
             <article class="intro-project" id="aware">
-              <div class="intro-project-heading"><h3>AWARe：基于激活重要性缓解灾难性遗忘</h3><p>第一作者 · EMNLP 2026 Main</p></div>
-              <p class="full-paper-title">Mitigating Catastrophic Forgetting via Activation-Weighted Adaptive REtention</p>
-              <dl class="project-brief"><dt>研究问题</dt><dd>多模态大语言模型在学习新任务时，已有知识与能力退化。</dd><dt>核心方法</dt><dd>利用激活值估计参数重要性，选择性冻结高重要性参数，更新其余参数以适应新任务。</dd></dl>
-              <figure class="intro-research-figure"><a href="../files/aware-method-overview.pdf"><img src="../assets/aware-method-overview.png" width="3000" height="1418" alt="AWARe 方法图：激活加权分析、重要参数筛选和约束微调" loading="lazy"></a><figcaption>先分析激活重要性，再冻结高重要性参数，对其余参数进行微调。</figcaption></figure>
+              <div class="intro-project-heading"><h3>AWARe: Mitigating Catastrophic Forgetting via Activation-Weighted Adaptive REtention</h3><p>第一作者 · EMNLP 2026 Main</p></div>
+              <p class="research-lead">面向多模态模型的持续后训练，用激活统计识别需要保护的参数，在学习新领域任务的同时缓解已有能力的遗忘。</p>
+              <nav class="research-jump-links" aria-label="AWARe 研究内容"><a href="#aware-motivation">Motivation</a><a href="#aware-method">Method</a><a href="#aware-equations">Equations</a><a href="#aware-results">Results</a><a href="#aware-ablations">Ablations &amp; discussion</a></nav>
+
+              <div class="research-part" id="aware-motivation">
+                <h4>Research question</h4>
+                <p>多模态大模型适应医疗、遥感等下游领域时，训练目标只要求模型学好当前任务，但参数更新也可能破坏原有的图文理解、知识问答与推理能力。持续学习时，这个问题还会累积：学完后面的任务，前面已经掌握的任务可能再次退化。</p>
+                <p>AWARe 研究的是<strong>如何为新任务保留可塑性，同时保护支撑已有能力的参数</strong>。方法以输出通道为保护单位：先在小规模标定样本上观察模型实际使用了哪些特征，再冻结高显著性通道对应的权重，让其余选定参数承担新任务适配。</p>
+                <p class="research-takeaway">关键思路：根据数据上的激活响应决定“保护谁”，再通过受约束的参数更新决定“在哪里学习”。</p>
+              </div>
+
+              <div class="research-part" id="aware-method">
+                <h4>Activation profiling &amp; constrained fine-tuning</h4>
+                <figure class="intro-research-figure"><button class="research-figure-button" type="button" data-figure="../assets/aware-method-overview.png" data-original="../files/aware-method-overview.pdf" data-title="AWARe · Framework overview" aria-label="放大 AWARe 框架总览"><img src="../assets/aware-method-overview.png" width="3000" height="1418" alt="AWARe 方法图：利用标定样本估计激活显著性，按输出通道冻结重要参数，并对其余选定参数进行约束微调。" loading="lazy"></button><figcaption><strong>Figure 2 · Framework overview.</strong> 先进行知识分析，再进行约束微调。输出通道对应线性层权重矩阵的一整行，冻结粒度为行级参数。<span class="figure-zoom-hint">点击图片放大 ↗</span></figcaption></figure>
+                <ol class="intro-method-list research-steps">
+                  <li>
+                    <p><strong>估计通道显著性。</strong>对目标线性层收集标定样本的输出激活，先沿序列维度计算 L2 范数，再在每个样本内沿输出特征维度做 L2 归一化，最后跨样本取平均。这样得到每个输出通道的相对显著性，减少不同样本激活尺度对排序的影响。</p>
+                    <figure class="intro-research-figure research-figure--detail"><button class="research-figure-button" type="button" data-figure="../assets/aware/method-detail.png" data-title="AWARe · Channel saliency" aria-label="放大 AWARe 通道显著性计算示意图"><img src="../assets/aware/method-detail.png" width="1600" height="925" alt="论文 Figure 3：输入 X 与权重 W 得到激活 A；沿序列聚合、归一化后，选出高显著性输出通道并冻结对应权重。" loading="lazy"></button><figcaption><strong>Figure 3 · From activations to protected channels.</strong> 图中蓝色列表示需要保护的输出通道。图中按输入维度 × 输出维度绘制权重；在实现采用的输出维度 × 输入维度权重布局中，对应冻结一整行。<span class="figure-zoom-hint">点击图片放大 ↗</span></figcaption></figure>
+                    <div id="aware-equations" class="research-equations" role="group" aria-label="通道显著性的三步计算">
+                      <div class="research-equation-step"><p class="research-equation-label">1 · Sequence aggregation</p><div class="math-display" data-math="display">a'_{i,k} = \sqrt{\sum_{j=1}^{L} a_{i,j,k}^{2}}</div><p class="research-equation-description">沿序列聚合，得到每个样本中每个通道的激活强度。</p></div>
+                      <div class="research-equation-step"><p class="research-equation-label">2 · Feature normalization</p><div class="math-display" data-math="display">a''_{i,k} = \frac{a'_{i,k}}{\lVert \mathbf{a}'_i \rVert_2}</div><p class="research-equation-description">在样本内部归一化，比较通道的相对响应。</p></div>
+                      <div class="research-equation-step"><p class="research-equation-label">3 · Batch averaging</p><div class="math-display" data-math="display">s_k = \frac{1}{B}\sum_{i=1}^{B} a''_{i,k}</div><p class="research-equation-description">跨标定样本取平均，得到通道显著性分数。</p></div>
+                    </div>
+                    <p class="intro-evidence-note">对应论文 Eq. (1)–(3)。激活张量 <span data-math="inline">\mathbf{A}\in\mathbb{R}^{B\times L\times d_{\mathrm{out}}}</span>；<span data-math="inline">i</span> 为样本索引，<span data-math="inline">j</span> 为序列位置，<span data-math="inline">k</span> 为输出通道，<span data-math="inline">B</span> 为标定样本数，<span data-math="inline">L</span> 为序列长度。</p>
+                  </li>
+                  <li>
+                    <p><strong>跨层分配保护预算。</strong>将所有目标层的“层—输出通道”对放在一起全局排序，冻结显著性最高的 <strong>30%</strong> 通道对应权重。各层获得的冻结配额可以不同，从而适应重要通道在层间与 Q/K/V 投影间的不均匀分布。</p>
+                    <figure class="intro-research-figure">
+                      <div class="research-figure-grid">
+                        <div><p class="research-panel-label">(a) q_proj</p><button class="research-figure-button" type="button" data-figure="../assets/aware/q-proj-retention.png" data-title="AWARe · q_proj retention" aria-label="放大 q_proj 冻结通道分布"><img src="../assets/aware/q-proj-retention.png" width="1600" height="935" alt="q_proj 高激活通道分布：横轴为模型层，纵轴为输出行索引，较深颜色主要集中在较早层。" loading="lazy"></button></div>
+                        <div><p class="research-panel-label">(b) k_proj</p><button class="research-figure-button" type="button" data-figure="../assets/aware/k-proj-retention.png" data-title="AWARe · k_proj retention" aria-label="放大 k_proj 冻结通道分布"><img src="../assets/aware/k-proj-retention.png" width="1600" height="935" alt="k_proj 高激活通道分布：较早层聚集了更多需要保护的通道，层间分布不均匀。" loading="lazy"></button></div>
+                        <div><p class="research-panel-label">(c) v_proj</p><button class="research-figure-button" type="button" data-figure="../assets/aware/v-proj-retention.png" data-title="AWARe · v_proj retention" aria-label="放大 v_proj 冻结通道分布"><img src="../assets/aware/v-proj-retention.png" width="1600" height="935" alt="v_proj 高激活通道分布：需要保护的通道相较 Q/K 投影更均匀地分布在模型深度上。" loading="lazy"></button></div>
+                      </div>
+                      <figcaption><strong>Figure 4 · Where are the protected channels?</strong> 横轴为层索引，纵轴为权重行索引。Q/K 的高激活通道更集中于早层，V 的分布更均匀，这为跨层统一排序、允许各层获得不同保护配额提供了依据。<span class="figure-zoom-hint">点击各子图放大 ↗</span></figcaption>
+                    </figure>
+                  </li>
+                  <li>
+                    <p><strong>在剩余空间学习新任务。</strong>更新范围限定为注意力 <strong>Q/K/V 投影和多模态投影层</strong>；MLP、注意力输出投影等其余部分保持冻结。训练时用 <code>AwareLinear</code> 分离冻结与可训练权重，结束后移除包装，恢复原始线性层结构，推理时无需额外适配器。</p>
+                    <div class="research-equation-update"><p class="research-equation-label">Masked parameter update · Eq. (5)</p><div class="math-display" data-math="display">\mathbf{W}^{(t+1)} = \mathbf{W}^{(t)} - \eta\bigl(\nabla_{\mathbf{W}}\mathcal{L}_{\mathrm{down}}\odot\mathbf{M}_{\mathrm{grad}}\bigr)</div><p class="research-equation-description"><span data-math="inline">\mathbf{M}_{\mathrm{grad}}</span> 在受保护行取 0、其余可训练行取 1；<span data-math="inline">\eta</span> 为学习率，<span data-math="inline">\odot</span> 表示逐元素相乘，使受保护权重在更新中保持固定。</p></div>
+                  </li>
+                </ol>
+                <p><strong>持续学习中的保护集合会重新估计。</strong>每个新任务开始前，基于当前模型重新计算显著性。五任务实验中，第一阶段使用 200 条 MMMU 标定样本，后续阶段加入每个已学任务的 100 条样本，用于分析需要保护的通道；这些样本用于前向标定，当前任务仍按下游训练目标进行优化。</p>
+                <p class="intro-evidence-note">30% 指所有目标线性层合并后的输出通道冻结预算，并非整个模型有 30% 参数被冻结，也不要求每层都冻结相同比例。方法细节见论文 §3、Algorithm 1；持续标定协议见 §4.4、Appendix A/C。</p>
+              </div>
+
+              <div class="research-part" id="aware-results">
+                <h4>Experimental design &amp; results</h4>
+                <p>实验同时检验<strong>学会新任务</strong>与<strong>保留旧能力</strong>：在 LLaVA-v1.5-7B 上进行 IconQA、COCO-Caption 单任务适配；在 LLaVA-v1.5-7B 与 Qwen2.5-VL-7B 上，按遥感（RS）→ 医疗（Med）→ 自动驾驶（AD）→ 科学推理（Sci）→ 金融理解（Fin）的顺序完成 MLLM-DCL 五任务持续学习；再用 Qwen3-VL-8B 验证医疗适配后的上游能力变化。</p>
+                <figure class="intro-research-figure research-figure--results"><button class="research-figure-button" type="button" data-figure="../assets/aware/results-overview.png" data-title="AWARe · Overall performance" aria-label="放大 AWARe 总体实验结果"><img src="../assets/aware/results-overview.png" width="1600" height="1470" alt="论文 Figure 1：上半部分为 IconQA 和 COCO-Caption 微调后的多任务雷达图，下半部分为 MLLM-DCL 持续学习的 Avg 与 Last 柱状对比。" loading="lazy"></button><figcaption><strong>Figure 1 · Learning new tasks while retaining prior capabilities.</strong> 上方雷达图同时展示目标任务适配与四项上游能力；下方柱状图展示五任务持续学习的 Avg / Last 对照。该图基于 LLaVA-v1.5-7B；下方数据表进一步展开 Qwen2.5-VL-7B 的跨模型验证。<span class="figure-zoom-hint">点击图片放大 ↗</span></figcaption></figure>
+                <dl class="intro-results"><div><dt>Qwen2.5-VL · 最终平均准确率</dt><dd>66.29<span>%</span></dd></div><div><dt>相对 LoRASculpt 的最终提升</dt><dd>+3.20<span>个百分点</span></dd></div><div><dt>Qwen3-VL · DCL-Med 提升</dt><dd>+23.5<span>个百分点</span></dd></div><div><dt>Qwen3-VL · 上游平均变化</dt><dd>−0.15<span>个百分点</span></dd></div></dl>
+                <div class="research-table-wrap" role="region" aria-labelledby="aware-continual-caption" tabindex="0">
+                  <table class="research-table"><caption id="aware-continual-caption">Qwen2.5-VL-7B · MLLM-DCL 五任务持续学习</caption><thead><tr><th scope="col">方法</th><th scope="col">MFT (%) ↑</th><th scope="col">MFN (%) ↑</th><th scope="col">BWT (pp) ↑</th></tr></thead><tbody><tr><th scope="row">LoRASculpt</th><td>65.15</td><td>63.09</td><td>−2.58</td></tr><tr class="research-table-highlight"><th scope="row">AWARe</th><td>68.09</td><td>66.29</td><td>−2.25</td></tr></tbody></table>
+                </div>
+                <p class="intro-evidence-note">MFT：每个任务刚学完时的准确率均值，衡量即时适配；MFN：全部任务学完后对五个任务的准确率均值，衡量最终综合表现；BWT：后续学习对先前任务的影响，负值表示平均遗忘，数值越高越好。pp 表示百分点。数据见论文 Table 12。</p>
+                <ul>
+                  <li><strong>LLaVA-v1.5-7B 持续学习：</strong>Avg / Last 分别达到 <strong>65.58 / 62.10</strong>，相对 DISCO 提升 <strong>3.18 / 1.77 个百分点</strong>。这里 Avg 为论文 Table 2 的逐任务平均表现，Last 为完成序列后的最终表现，与上表 MFT 的统计口径不同。</li>
+                  <li><strong>Qwen3-VL-8B 医疗适配：</strong>DCL-Med 准确率由 <strong>38.5% 提升到 62.0%</strong>，同时 14 项上游基准的准确率平均变化为 <strong>−0.15 个百分点</strong>，覆盖图文理解、知识、数学与指令遵循等能力。</li>
+                </ul>
+                <p class="intro-evidence-note">上游均值并不代表所有能力都保持不变：例如 ChartQA 提升 4.5 个百分点，CEval 下降 3.4 个百分点。完整逐项结果见论文 Table 15。</p>
+              </div>
+
+              <div class="research-part" id="aware-ablations">
+                <h4>Ablations &amp; discussion</h4>
+                <p><strong>为什么选择 Q/K/V 与多模态投影层？</strong>论文比较了不同训练模块对目标任务和上游任务的影响。联合更新 Self-Attn 与多模态投影层（MM）取得较好的稳定性与可塑性平衡；仅更新 Self-Attn 会限制新任务适配，而更新 MLP 的配置会显著损伤上游能力。</p>
+                <figure class="intro-research-figure research-figure--ablation"><button class="research-figure-button" type="button" data-figure="../assets/aware/training-target-ablation.png" data-title="AWARe · Training target ablation" aria-label="放大 AWARe 训练模块消融图"><img src="../assets/aware/training-target-ablation.png" width="1600" height="960" alt="论文 Figure 5：Self-Attn 加 MM 在 IconQA 和四项上游任务上取得较好平衡；更新 MLP 的配置在多项上游任务上显著退化。" loading="lazy"></button><figcaption><strong>Figure 5 · Which modules should adapt?</strong> 虚线左侧为目标任务 IconQA，右侧为上游任务。橙线为 Self-Attn + MM：IconQA 为 86.9，上游各项维持在约 57–65 分；含 MLP 的配置在多项上游任务上出现大幅下降。<span class="figure-zoom-hint">点击图片放大 ↗</span></figcaption></figure>
+                <p><strong>保护效果是否只来自“少更新一些参数”？</strong>在 Qwen2.5-VL-7B 的 RS 任务上固定 30% 冻结预算，比较多模态标定、纯文本标定与随机冻结。三者的目标任务分数接近，但旧能力保留存在明显差别。</p>
+                <div class="research-table-wrap" role="region" aria-labelledby="aware-calibration-caption" tabindex="0">
+                  <table class="research-table"><caption id="aware-calibration-caption">同预算对照 · Qwen2.5-VL-7B / RS，准确率 (%)</caption><thead><tr><th scope="col">通道选择依据</th><th scope="col">RS 目标任务 ↑</th><th scope="col">9 项上游均值 ↑</th><th scope="col">ChartQA ↑</th></tr></thead><tbody><tr class="research-table-highlight"><th scope="row">MMMU 多模态标定</th><td>76.95</td><td>67.5</td><td>74.5</td></tr><tr><th scope="row">MMLU 纯文本标定</th><td>75.89</td><td>65.4</td><td>66.5</td></tr><tr><th scope="row">随机冻结</th><td>76.72</td><td>63.0</td><td>65.0</td></tr></tbody></table>
+                </div>
+                <p>相较随机冻结，多模态标定在相近 RS 分数下使上游均值提高 <strong>4.5 个百分点</strong>，支持显著性选择本身的作用；而纯文本标定的 ChartQA 比多模态标定低 <strong>8.0 个百分点</strong>，说明标定集需要覆盖希望保护的能力。</p>
+                <p><strong>冻结越多是否越好？</strong>在 LLaVA-v1.5-7B / IconQA 上，将全局冻结比例从 30% 增至 50%、90%，上游相对性能保留率从 98.4% 升至 99.1%、99.8%，但目标准确率从 86.92% 变为 85.97%、54.62%。过度冻结会压缩学习空间，30% 是实验中稳定性与可塑性的折中配置。</p>
+                <p><strong>适用边界。</strong>激活显著性依赖标定数据的覆盖，冻结比例仍需要结合任务变化选择。现有验证覆盖至 8B 规模的图文模型和五任务序列；更大模型、更长或不同顺序的任务流，以及音视频模型上的效果仍需进一步验证。</p>
+                <p class="intro-evidence-note">标定对照来自论文 Table 14，9 项上游均值按该表取算术平均；冻结比例消融来自 Table 4，其中保留率为各上游任务“微调后分数 / 微调前分数”的均值。</p>
+              </div>
               <div class="intro-resource-links"><a href="https://aware.jcliao.net/">论文主页 ↗</a><a href="../files/aware-paper.pdf">论文 PDF ↗</a><a href="https://github.com/kaln27/AWARe">代码 ↗</a><button class="citation-copy" type="button" data-copy-citation="aware" aria-label="复制 AWARe 的 BibTeX"><span data-copy-label>BibTeX</span> <span aria-hidden="true">⧉</span></button></div>
             </article>
 
             <article class="intro-project" id="omnikey">
-              <div class="intro-project-heading"><h3>OmniKey：按表征生命周期压缩视听 Token</h3><p>第二作者 · AAAI 2027（在投）</p></div>
-              <p class="full-paper-title">Lifecycle-Aware Audiovisual Token Compression for Omni-Modal Large Language Models</p>
-              <dl class="project-brief"><dt>研究问题</dt><dd>长音视频输入带来较高的推理计算量与 KV 缓存开销。</dd><dt>核心方法</dt><dd>基于截断矩阵熵分析表征生命周期，分阶段压缩音视频 Token，保留时序与跨模态信息。</dd></dl>
-              <figure class="intro-research-figure"><button class="research-figure-button" type="button" data-figure="../assets/omnikey-method-overview.png" data-title="OmniKey · 方法总览" aria-label="放大 OmniKey 主图"><img src="../assets/omnikey-method-overview.png" width="2030" height="714" alt="OmniKey 主图：浅层保留视听信息，中层进行对齐感知的渐进选择，深层退出音视频 Token。" loading="lazy"></button><figcaption>浅层保留视听信息，中层渐进选择，深层退出。<span class="figure-zoom-hint">点击主图放大 ↗</span></figcaption></figure>
-              <ol class="intro-method-list"><li><strong>分块去冗余：</strong>压缩音视频分块内的冗余信息，保留时序信息。</li><li><strong>渐进剪枝：</strong>使用 Key 范数倒数排序 Token，在中间层逐步压缩。</li><li><strong>深层退出：</strong>在表征生命周期后期退出音视频 Token。</li></ol>
-              <p class="intro-method-note">无需训练 · 兼容 FlashAttention</p>
-              <dl class="intro-results"><div><dt>音视频 Token 保留</dt><dd>25%</dd></div><div><dt>平均性能保留</dt><dd>98.6%</dd></div><div><dt>预填充加速</dt><dd>3.44×</dd></div><div><dt>峰值显存降低</dt><dd>4.55<span>GiB</span></dd></div></dl>
-              <p class="intro-evidence-note">以上结果基于 Qwen2.5-Omni-7B。98.6% 为四项基准的平均性能保留比例；3.44× 为 WorldSense 上的解码器预填充加速。显存降低量相对于完整 Token 输入。</p>
+              <div class="intro-project-heading"><h3>OmniKey: Lifecycle-Aware Audiovisual Token Compression for Omni-Modal Large Language Models</h3><p>第二作者 · AAAI 2027（在投）</p></div>
+              <p class="research-lead">以表征生命周期决定何时压缩，以 Key 的视听对齐与范数决定保留什么，在降低推理开销的同时保留同步视听证据。</p>
+              <nav class="research-jump-links" aria-label="OmniKey 研究内容"><a href="#omnikey-motivation">Motivation</a><a href="#omnikey-method">Method</a><a href="#omnikey-evidence">Evidence</a><a href="#omnikey-results">Results</a></nav>
+
+              <div class="research-part" id="omnikey-motivation">
+                <h4>Motivation · Compress along the representation lifecycle</h4>
+                <p>长音视频输入会增加 LLM prefill 计算和 KV Cache 显存开销。压缩需要同时保留<strong>时间覆盖与视听互补证据</strong>：既要留下关键画面和声音，也要保住它们在同一时刻的对应关系。</p>
+                <p>OmniKey 用截断矩阵熵（TME）离线观察表征随层深的变化：<strong>视听谱逐渐集中，后期文本侧变化增强</strong>；不同时间片段的视听对齐程度也存在差异。这启发了“浅层保留、中层渐进选择、深层视听退出”的三阶段策略。</p>
+                <figure class="intro-research-figure">
+                  <div class="research-figure-grid">
+                    <div><p class="research-panel-label">Audio &amp; video lifecycle</p><button class="research-figure-button" type="button" data-figure="../assets/omnikey/lifecycle-av.png" data-title="OmniKey · Audiovisual lifecycle" aria-label="放大 OmniKey 视听表征生命周期曲线"><img src="../assets/omnikey/lifecycle-av.png" width="1383" height="900" alt="论文 Figure 2(a)：DailyOmni 和 WorldSense 中音频、视频表征的标准化 TME 整体随层深下降，中间层存在波动。" loading="lazy"></button></div>
+                    <div><p class="research-panel-label">Text-side refinement</p><button class="research-figure-button" type="button" data-figure="../assets/omnikey/lifecycle-text.png" data-title="OmniKey · Text lifecycle" aria-label="放大 OmniKey 文本表征生命周期曲线"><img src="../assets/omnikey/lifecycle-text.png" width="1275" height="900" alt="论文 Figure 2(b)：文本表征的标准化 TME 在中层较平稳，在后期上升。" loading="lazy"></button></div>
+                    <div><p class="research-panel-label">Alignment across time</p><button class="research-figure-button" type="button" data-figure="../assets/omnikey/chunk-alignment.png" data-title="OmniKey · Chunk alignment" aria-label="放大 OmniKey 时间片段视听对齐热图"><img src="../assets/omnikey/chunk-alignment.png" width="1525" height="900" alt="论文 Figure 2(c)：不同时间片段的视听 Key 对齐程度存在差异，并随深度变化。" loading="lazy"></button></div>
+                  </div>
+                  <figcaption><strong>Figure 2 · When and where to compress?</strong> 左、中图展示表征生命周期，右图展示时间片段间的对齐差异。TME 越低，主导谱能量越集中；曲线沿层深标准化，热图在每层内按片段标准化，颜色仅表示相对差异。<span class="figure-zoom-hint">点击各子图放大 ↗</span></figcaption>
+                </figure>
+                <p class="intro-evidence-note">TME 用于离线规划阶段。同一骨干与预算配置使用固定层调度，在线选择随当前样本变化，无需每次输入都重新进行谱分解。</p>
+              </div>
+
+              <div class="research-part" id="omnikey-method">
+                <h4>Method · Synchronized chunks and Key-guided selection</h4>
+                <figure class="intro-research-figure"><button class="research-figure-button" type="button" data-figure="../assets/omnikey/method-overview.png" data-title="OmniKey · Framework overview" aria-label="放大 OmniKey 主图"><img src="../assets/omnikey/method-overview.png" width="2104" height="675" alt="论文 Figure 4：输入端去冗余，浅层保留视听信息，中层根据 Key 对齐与范数渐进选择，深层退出视听 Token。" loading="lazy"></button><figcaption><strong>Figure 4 · Lifecycle-aware audiovisual compression.</strong> 左侧为分阶段处理路径；右侧展开中层选择：先分配时间片段预算，再选择片段内的 Token。<span class="figure-zoom-hint">点击主图放大 ↗</span></figcaption></figure>
+                <ol class="intro-method-list research-steps">
+                  <li><strong>输入去冗余，浅层保留。</strong>将两帧视频与同步音频组成一个 chunk。视频按空间、时间相似度去冗余，音频按局部冗余评分筛选；随后在浅层保留视听 Token，让联合表征形成。</li>
+                  <li><strong>中层渐进选择。</strong>先按视听 Key 的对齐程度分配 chunk 预算，再按 Key 范数倒数选择片段内的 Token，在多个层逐步缩短序列。</li>
+                  <li><strong>深层视听退出。</strong>达到预设退出层后移除剩余视听状态，后续解码层仅处理文本，继续推理与答案生成。</li>
+                </ol>
+                <div id="omnikey-equations" class="research-equations research-equations--pair" role="group" aria-label="Key 对齐预算分配与片段内 Token 排序的核心公式">
+                  <div class="research-equation-step"><p class="research-equation-label">Temporal budget · Eq. (15)</p><div class="math-display" data-math="display">w_{\ell,t}=\frac{\exp(q_{\ell,t}/\tau)}{\sum_u\exp(q_{\ell,u}/\tau)}</div><p class="research-equation-description"><span data-math="inline">q_{\ell,t}</span> 是第 ℓ 层、片段 t 的视听对齐分数：每个头内分别求音频、视频平均 Key 的余弦相似度，再跨头平均。温度 τ 控制预算权重的集中程度；高对齐片段分配更多保留预算。</p></div>
+                  <div class="research-equation-step"><p class="research-equation-label">Within-chunk ranking · Eq. (18)</p><div class="math-display" data-math="display">s_{\ell,i}=\frac{1}{\lVert K_{\ell,i}\rVert_2+\epsilon}</div><p class="research-equation-description">将 Token 各头的 Key 拼接后，以其 L2 范数倒数评分，在每个 chunk 的预算内保留高分 Token。诊断实验中 Key 范数与注意力显著性的负相关，为这一低成本排序提供了经验依据。</p></div>
+                </div>
+                <p class="research-takeaway">无需训练；在线选择复用前向已计算的 Key，无需额外展开注意力概率矩阵，兼容 FlashAttention。</p>
+              </div>
+
+              <div class="research-part" id="omnikey-evidence">
+                <h4>Evidence · Preserve the right audiovisual moment</h4>
+                <p><strong>“#CBCNEWS 标签首次出现时，同时发生了什么声音事件？”</strong>这类问题需要保留同一时刻的画面与声音。OmniKey 将更多预算放在标签与铃声共同出现的区间，预测 D（铃声）；OmniZip 的音频引导分配偏向其他区间，预测 A（背景音乐）。</p>
+                <figure class="intro-research-figure"><button class="research-figure-button" type="button" data-figure="../assets/omnikey/temporal-case.png" data-title="OmniKey · Preserving synchronized evidence" aria-label="放大 OmniKey 时间预算分配案例"><img src="../assets/omnikey/temporal-case.png" width="2104" height="600" alt="论文 Figure 5：预算分配曲线与同步视听时间线对照，OmniKey 在标签和铃声共同出现的红框区间分配更多预算，并选中正确答案 D。" loading="lazy"></button><figcaption><strong>Figure 5 · Preserving synchronized audiovisual evidence.</strong> 上方为各策略的时间预算分配，下方为同步画面与音频波形；红框标出与答案有关的视听对应区间。<span class="figure-zoom-hint">点击图片放大 ↗</span></figcaption></figure>
+                <p class="research-takeaway"><strong>同预算验证：</strong>在 7B / DailyOmni / 保留 35% 视听 Token 的消融中，对齐引导分配较均匀分配的 AV Event Alignment 分数提升 <strong>1.27 个百分点</strong>（47.88 → 49.15），总体平均分由 60.09 提升至 60.82。</p>
+              </div>
+
+              <div class="research-part" id="omnikey-results">
+                <h4>Results · Quality, latency and memory</h4>
+                <p>实验覆盖 Qwen2.5-Omni-3B / 7B、四项音视频理解基准和 35% / 25% 两档保留配置。下面聚焦 <strong>7B、保留 25% 视听 Token</strong>：四项基准的平均性能保留率为 <strong>98.6%</strong>；WorldSense 上同时降低了推理延迟和峰值显存。</p>
+                <dl class="intro-results"><div><dt>四项基准平均性能保留</dt><dd>98.6%</dd></div><div><dt>WorldSense · LLM prefill</dt><dd>3.44×</dd></div><div><dt>WorldSense · 端到端加速</dt><dd>1.36×</dd></div><div><dt>WorldSense · 峰值显存降低</dt><dd>4.55<span>GiB</span></dd></div></dl>
+                <div class="research-table-wrap research-table-wrap--compact" role="region" aria-labelledby="omnikey-quality-caption" tabindex="0">
+                  <table class="research-table"><caption id="omnikey-quality-caption">Task quality · Qwen2.5-Omni-7B / 25% audiovisual tokens</caption><thead><tr><th scope="col">Benchmark</th><th scope="col">Full Tokens ↑</th><th scope="col">OmniKey ↑</th></tr></thead><tbody><tr><th scope="row">WorldSense</th><td>46.72</td><td>45.55</td></tr><tr><th scope="row">OmniVideoBench</th><td>34.2</td><td>35.4</td></tr><tr><th scope="row">AVUTBench</th><td>64.59</td><td>62.34</td></tr><tr><th scope="row">DailyOmni</th><td>61.55</td><td>59.65</td></tr></tbody></table>
+                </div>
+                <p class="intro-evidence-note">98.6% 是四项基准各自“压缩后分数 / Full Tokens 分数”的均值。WorldSense 上，prefill 为 1.938 → 0.564 s，端到端延迟为 5.249 → 3.858 s，峰值显存为 22.814 → 18.269 GiB；实验使用 RTX 5880 Ada（48 GB）。预处理、编码和生成仍占用时间，因此 prefill 加速不等于端到端加速。数据对应论文 Tables 1–4；迁移到其他骨干时仍需检查层调度与质量—效率取舍。</p>
+              </div>
               <div class="intro-resource-links"><a href="../publication/omnikey/">研究详情 ↗</a></div>
             </article>
           </section>
