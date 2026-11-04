@@ -5,20 +5,46 @@ if (figureDialog) {
   const image = figureDialog.querySelector('.large-figure');
   const title = figureDialog.querySelector('#figure-title');
   const originalLink = figureDialog.querySelector('.figure-download');
+  const description = figureDialog.querySelector('.figure-description');
+  const content = figureDialog.querySelector('.figure-content');
   document.querySelectorAll('[data-figure]').forEach((button) => {
     button.addEventListener('click', () => {
       figureTrigger = button;
       const thumbnail = button.querySelector('img');
+      const isTable = button.hasAttribute('data-paper-table');
+      const summaryId = button.getAttribute('aria-describedby');
+      const summary = isTable && summaryId ? document.getElementById(summaryId)?.textContent : '';
+      figureDialog.classList.toggle('figure-dialog--table', isTable);
+      if (description) {
+        description.textContent = summary || '';
+        description.hidden = !summary;
+        if (summary) figureDialog.setAttribute('aria-describedby', description.id);
+        else figureDialog.removeAttribute('aria-describedby');
+      }
+      if (content) {
+        if (isTable) {
+          content.setAttribute('tabindex', '0');
+          content.setAttribute('role', 'region');
+          content.setAttribute('aria-label', '可横向滚动的论文表格');
+        } else {
+          content.removeAttribute('tabindex');
+          content.removeAttribute('role');
+          content.removeAttribute('aria-label');
+        }
+      }
+      image.alt = thumbnail?.alt ?? `${button.dataset.title}（论文原表）`;
+      for (const dimension of ['width', 'height']) {
+        if (thumbnail?.hasAttribute(dimension)) image.setAttribute(dimension, thumbnail.getAttribute(dimension));
+        else image.removeAttribute(dimension);
+      }
       image.src = button.dataset.figure;
-      image.alt = thumbnail.alt;
-      image.width = Number(thumbnail.getAttribute('width'));
-      image.height = Number(thumbnail.getAttribute('height'));
       title.textContent = button.dataset.title;
       if (originalLink) {
         originalLink.href = button.dataset.original || button.dataset.figure;
-        originalLink.textContent = document.documentElement.lang.startsWith('zh') ? '打开原图 ↗' : 'Open original figure ↗';
+        originalLink.textContent = isTable ? '打开论文原表 ↗' : document.documentElement.lang.startsWith('zh') ? '打开原图 ↗' : 'Open original figure ↗';
       }
       figureDialog.showModal();
+      if (content) content.scrollLeft = 0;
     });
   });
   figureDialog.querySelector('[data-close-dialog]').addEventListener('click', () => figureDialog.close());

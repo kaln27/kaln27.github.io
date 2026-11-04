@@ -124,6 +124,18 @@
 .research-table-highlight td, .research-table-highlight th { font-weight: 600; }
 .research-table--wide { min-width: 720px; }
 .research-table-wrap--compact .research-table { min-width: 0; }
+.research-table-actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 14px; margin: 18px 0 24px; }
+.research-table-actions > div { padding: 13px 15px; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); }
+.research-table-actions button { display: block; width: 100%; padding: 0; border: 0; background: transparent; color: var(--accent); text-align: left; cursor: pointer; font: 650 14px/1.6 var(--font-sans); }
+.research-table-actions button:hover { text-decoration: underline; text-underline-offset: 3px; }
+.intro-section .research-table-actions p { margin: 6px 0 0; color: var(--muted); font: 400 13px/1.75 var(--font-sans); }
+.figure-description, .figure-scroll-note { margin: 0 0 12px; color: var(--muted); font: 400 14px/1.75 var(--font-sans); }
+.figure-scroll-note { display: none; font-size: 12px; }
+.figure-dialog--table .figure-content { overflow-x: auto; border: 1px solid var(--line); background: #fff; }
+.figure-dialog--table .large-figure { min-width: 980px; max-height: none; height: auto; }
+@media (max-width: 1100px) {
+  .figure-dialog--table .figure-scroll-note { display: block; }
+}
 .research-part + .intro-resource-links { padding-top: 5px; }
 #research .intro-project + .intro-project { margin-top: 43px; padding-top: 34px; }
 .intro-callout { border-left: 2px solid var(--accent); padding: 7px 0 7px 15px; color: var(--heading); }

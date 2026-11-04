@@ -109,6 +109,16 @@
               <div class="research-part" id="aware-results">
                 <h4>Experimental design &amp; results</h4>
                 <p>实验同时检验<strong>学会新任务</strong>与<strong>保留旧能力</strong>：在 LLaVA-v1.5-7B 上进行 IconQA、COCO-Caption 单任务适配；在 LLaVA-v1.5-7B 与 Qwen2.5-VL-7B 上，按遥感（RS）→ 医疗（Med）→ 自动驾驶（AD）→ 科学推理（Sci）→ 金融理解（Fin）的顺序完成 MLLM-DCL 五任务持续学习；再用 Qwen3-VL-8B 验证医疗适配后的上游能力变化。</p>
+                <div class="research-table-actions" role="group" aria-label="AWARe 论文完整实验表">
+                  <div>
+                    <button type="button" aria-haspopup="dialog" aria-controls="research-figure-dialog" aria-describedby="aware-table-1-summary" data-paper-table data-figure="../assets/aware/table-1-single-task.png" data-original="../files/aware-paper.pdf#page=6" data-title="AWARe · Table 1：单任务适配与知识保留">Table 1 · 单任务适配与知识保留 <span aria-hidden="true">↗</span></button>
+                    <p id="aware-table-1-summary">比较 LLaVA-v1.5-7B 在 IconQA 和 COCO-Caption 上的适配效果及四项上游能力。R 为知识保留，E 为学习效率，H 为两者的调和平均；AWARe 的 H 分别为 103.2 和 108.0。</p>
+                  </div>
+                  <div>
+                    <button type="button" aria-haspopup="dialog" aria-controls="research-figure-dialog" aria-describedby="aware-table-2-summary" data-paper-table data-figure="../assets/aware/table-2-continual-learning.png" data-original="../files/aware-paper.pdf#page=7" data-title="AWARe · Table 2：五任务持续学习">Table 2 · 五任务持续学习 <span aria-hidden="true">↗</span></button>
+                    <p id="aware-table-2-summary">MLLM-DCL 五项任务逐项对比。Avg 衡量各任务学会后各评估阶段的平均表现，Last 衡量全序列训练结束时的表现；AWARe 的总体 Avg / Last 为 65.58 / 62.10。</p>
+                  </div>
+                </div>
                 <figure class="intro-research-figure research-figure--results"><button class="research-figure-button" type="button" data-figure="../assets/aware/results-overview.png" data-title="AWARe · Overall performance" aria-label="放大 AWARe 总体实验结果"><img src="../assets/aware/results-overview.png" width="1600" height="1470" alt="论文 Figure 1：上半部分为 IconQA 和 COCO-Caption 微调后的多任务雷达图，下半部分为 MLLM-DCL 持续学习的 Avg 与 Last 柱状对比。" loading="lazy"></button><figcaption><strong>Figure 1 · Learning new tasks while retaining prior capabilities.</strong> 上方雷达图同时展示目标任务适配与四项上游能力；下方柱状图展示五任务持续学习的 Avg / Last 对照。该图基于 LLaVA-v1.5-7B；下方数据表进一步展开 Qwen2.5-VL-7B 的跨模型验证。<span class="figure-zoom-hint">点击图片放大 ↗</span></figcaption></figure>
                 <dl class="intro-results"><div><dt>Qwen2.5-VL · 最终平均准确率</dt><dd>66.29<span>%</span></dd></div><div><dt>相对 LoRASculpt 的最终提升</dt><dd>+3.20<span>个百分点</span></dd></div><div><dt>Qwen3-VL · DCL-Med 提升</dt><dd>+23.5<span>个百分点</span></dd></div><div><dt>Qwen3-VL · 上游平均变化</dt><dd>−0.15<span>个百分点</span></dd></div></dl>
                 <div class="research-table-wrap" role="region" aria-labelledby="aware-continual-caption" tabindex="0">
@@ -317,6 +327,12 @@
     </main>
     <footer><span>廖俊程 · 研究与项目</span><a href="../">返回学术主页 ↑</a></footer>
   </div>
-  <dialog class="figure-dialog" aria-labelledby="figure-title"><div class="dialog-toolbar"><h2 id="figure-title">研究主图</h2><button type="button" data-close-dialog aria-label="关闭主图">关闭 <span aria-hidden="true">×</span></button></div><img class="large-figure" width="2030" height="714" alt=""><a class="figure-download" href="../assets/omnikey-method-overview.png">打开原图 ↗</a></dialog>
+  <dialog class="figure-dialog" id="research-figure-dialog" aria-labelledby="figure-title">
+    <div class="dialog-toolbar"><h2 id="figure-title">研究主图</h2><button type="button" data-close-dialog aria-label="关闭主图">关闭 <span aria-hidden="true">×</span></button></div>
+    <p class="figure-description" id="figure-description" hidden></p>
+    <p class="figure-scroll-note">可横向滑动查看完整表格</p>
+    <div class="figure-content"><img class="large-figure" width="2030" height="714" alt=""></div>
+    <a class="figure-download" href="../assets/omnikey-method-overview.png">打开原图 ↗</a>
+  </dialog>
 </body>
 </html>

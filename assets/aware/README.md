@@ -14,3 +14,7 @@ click-to-enlarge control on the introduction page.
 | `v-proj-retention.png` | Figure 4(c), p. 6 | `v_proj_heatmap.pdf` |
 | `results-overview.png` | Figure 1, p. 1 | `mllm_dcl_combined.pdf` |
 | `training-target-ablation.png` | Figure 5, p. 8 | `training_target_ablation.pdf` |
+
+The results dialogs also show high-resolution crops of Table 1 (p. 6) and
+Table 2 (p. 7) from `files/aware-paper.pdf`. They preserve the original rows,
+columns, and highlights; the dialogs link to the paper for the captions.
