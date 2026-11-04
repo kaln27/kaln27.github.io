@@ -58,6 +58,14 @@
 .intro-method-list li::marker { color: var(--muted); font-size: 12px; }
 .intro-results { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); padding: 18px 0; margin: 22px 0 13px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); gap: 16px; }
 .intro-results--pair { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.intro-results.intro-results--engineering { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.engineering-topic > p, .engineering-topic > ol { max-width: 43em; }
+.engineering-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.engineering-links a { padding: 3px 9px; border: 1px solid var(--line); border-radius: 4px; font: 500 12px/1.7 var(--font-sans); }
+@media (max-width: 520px) {
+  .intro-results.intro-results--engineering { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .intro-results--engineering > div:first-child { grid-column: 1 / -1; }
+}
 .intro-results dt { color: var(--muted); font-size: 13px; }
 .intro-results dd { margin: 4px 0 0; font-size: 32px; font-weight: 500; line-height: 1.5; color: var(--heading); font-variant-numeric: tabular-nums; }
 .intro-results dd span { font-size: 12px; margin-left: 3px; font-weight: 400; }

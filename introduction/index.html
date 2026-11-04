@@ -178,21 +178,50 @@
 
           <section class="intro-section" id="internship" aria-labelledby="internship-title">
             <div class="intro-section-heading"><span aria-hidden="true">03</span><h2 id="internship-title">训练与推理工程</h2></div>
-            <div class="employer-heading"><img class="company-logo" src="../assets/uniubi-logo.svg" width="94" height="20" alt="Uni-Ubi 公司标志" loading="lazy"><div class="intro-project-heading"><h3>Uni-Ubi · 算法实习生</h3><p>2025.04 – 至今</p></div></div>
-            <p class="intro-context">应用场景：工地安全检测，多模态模型训练与量化部署。</p>
-            <h4>多模态训练与视频 Rollout</h4>
-            <ul><li>使用 LLaMA Factory 微调 Qwen2.5-VL 和 MIMO-VL-7B，面向工地安全检测场景。</li><li>基于 SFT 模型使用 VeRL 进行强化学习，以 LLM-as-a-judge 参与奖励评分。</li><li>定位并修复 VeRL 的视频训练问题，适配以 vLLM 作为 Rollout 的视频训练链路，并贡献相关开源代码。</li></ul>
-            <h4>NVFP4 量化部署</h4>
-            <p>定位并修复早期 vLLM 的 NVFP4 支持缺陷，跑通量化部署流程，为 KV Cache 和更长上下文释放显存空间。</p>
-            <dl class="intro-results intro-results--pair"><div><dt>吞吐率提升（相对 FP8）</dt><dd>约 1.5×</dd></div><div><dt>显存占用降低（相对 FP8）</dt><dd>30%–40%</dd></div></dl>
-            <p class="intro-evidence-note">实习项目测试结果，模型性能基本保持不变。具体收益随硬件、模型与部署配置变化。</p>
+            <div class="employer-heading"><img class="company-logo" src="../assets/uniubi-logo.svg" width="94" height="20" alt="Uni-Ubi 公司标志" loading="lazy"><div class="intro-project-heading"><h3>宇泛智能（Uni-Ubi）· 算法实习生</h3><p>2025.04 – 至今</p></div></div>
+            <p class="intro-context">面向工地安全检测，开展视觉语言模型后训练、视频强化学习链路适配与低精度推理部署。</p>
+            <dl class="intro-results intro-results--engineering">
+              <div><dt>项目内 Judge 评分</dt><dd>0.50 → 0.75</dd></div>
+              <div><dt>NVFP4 吞吐率（相对 FP8）</dt><dd>约 1.5×</dd></div>
+              <div><dt>NVFP4 显存降幅（相对 FP8）</dt><dd>30%–40%</dd></div>
+            </dl>
+            <p class="intro-evidence-note">以上均为项目内测试近似值。Judge 评分用于评价项目模型输出；量化对比中，模型效果基本保持。</p>
+
+            <article class="intro-project engineering-topic" id="internship-post-training">
+              <h3>多模态后训练与视频 Rollout</h3>
+              <p><strong>从 SFT 到 GRPO。</strong>用 LLaMA-Factory 对 Qwen2.5-VL 和 MiMo-VL-7B 做监督微调，适配工地安全检测的视觉理解任务。以 SFT 模型为起点，使用项目提供的约 1 万条数据在 verl 中做 GRPO，接入 LLM-as-a-Judge 奖励评分。</p>
+              <p><strong>打通视频 Rollout。</strong>定位到视频元数据未随请求传入 vLLM，导致生成阶段报错；补齐元数据传递，并将 <code>image_patch_size</code> 改为可配置，适配 Qwen2.5-VL 与 Qwen3-VL 的预处理差异。另修复了 GLM-4.1V 在 verl GRPO 中的模型加载和检查点映射兼容问题。</p>
+              <div class="engineering-links"><a href="https://github.com/volcengine/verl/pull/3928">verl #3928 · 已合并 ↗</a><a href="https://github.com/huggingface/transformers/pull/39199">Transformers #39199 · 已合并 ↗</a></div>
+            </article>
+
+            <article class="intro-project engineering-topic" id="internship-quantization">
+              <h3>低精度部署与推理算子适配</h3>
+              <p><strong>项目部署。</strong>定位并修复早期 vLLM 的 NVFP4 支持缺陷，跑通模型量化后的加载与推理。项目内对比 FP8 时，NVFP4 在模型效果基本保持的情况下提高吞吐、减少显存占用，为 KV Cache 和更长上下文留出空间。</p>
+              <p><strong>相关开源工作。</strong>为 NVIDIA Blackwell 消费级显卡（sm120）补齐 vLLM 和 SGLang 的 CUTLASS FP8 GEMM 路径，并在 RTX 5070 Ti 上验证 vLLM 可运行 Qwen2.5-VL-7B 的 FP8-Dynamic 版本。另在 SGLang 提出修复视觉 QKV 层名称不匹配导致量化忽略规则失效的问题。</p>
+              <div class="engineering-links"><a href="https://github.com/vllm-project/vllm/pull/17280">vLLM #17280 · 已合并 ↗</a><a href="https://github.com/sgl-project/sglang/pull/9403">SGLang #9403 · 已合并 ↗</a><a href="https://github.com/sgl-project/sglang/pull/9596">SGLang #9596 · 修复提案 ↗</a></div>
+            </article>
           </section>
 
           <section class="intro-section" id="robotics" aria-labelledby="robotics-title">
             <div class="intro-section-heading"><span aria-hidden="true">04</span><h2 id="robotics-title">具身智能实践</h2></div>
-            <article class="intro-project"><h3>π0.5 在松灵 nero 机械臂上的部署</h3><ul><li><strong>数据采集：</strong>使用主从臂采集 50 条 pick and place 数据。</li><li><strong>训练部署：</strong>完成环境搭建、π0.5 模型训练与机械臂部署推理。</li><li><strong>验证：</strong>在所用机械臂上开展泛化验证。</li></ul></article>
-            <article class="intro-project"><h3>机械臂按电梯按钮：视觉定位与闭环校正</h3><ol class="intro-method-list"><li><strong>目标定位：</strong>输入相机图像与楼层号，Qwen3-VL-30B-A3B 输出目标按钮 bbox。</li><li><strong>三维标定：</strong>结合 RealSense 和手眼标定，将相机坐标转换到机械臂基座坐标。</li><li><strong>闭环执行：</strong>悬停后通过模板匹配校正位置，误差可接受后执行按压。</li></ol><p class="intro-method-note">手眼标定 · 机械臂 SDK · FK / IK</p></article>
-            <article class="intro-project"><h3>机械臂配合底盘开门：模仿学习与 PPO</h3><ol class="intro-method-list"><li><strong>数据：</strong>在 Isaac Sim 中使用门把手位置、旋转轴与角度，生成机械臂与底盘协同开门轨迹，保存为 LeRobot 格式。</li><li><strong>策略：</strong>改造 ACT，输出动作均值与方差，供后续强化学习使用。</li><li><strong>优化：</strong>通过 PPO 和稀疏二值奖励，在不同形状和材质的门上开展仿真评估。</li></ol><p class="intro-callout">仿真综合成功率约 <strong>85%</strong> · 尚未进行真机验证</p></article>
+            <p class="intro-context">三个项目分别覆盖 VLA 真机部署、视觉定位闭环和仿真策略训练。</p>
+            <dl class="intro-results intro-results--pair">
+              <div><dt>π0.5 真机抓取与放置示教</dt><dd>50<span>条</span></dd></div>
+              <div><dt>机械臂与底盘协同开门 · 仿真成功率</dt><dd>约 85%</dd></div>
+            </dl>
+            <article class="intro-project engineering-topic">
+              <div class="intro-project-heading"><h3>π0.5 在松灵 nero 机械臂上的部署</h3><p>真机部署</p></div>
+              <p>用主从臂采集抓取与放置示教数据，完成训练环境搭建、π0.5 模型训练和机械臂推理部署，并在同一机械臂上开展泛化验证。</p>
+            </article>
+            <article class="intro-project engineering-topic">
+              <h3>机械臂按电梯按钮：视觉定位与闭环校正</h3>
+              <p>按压需要把图像里的按钮位置转成机械臂可执行的目标坐标，并在接触前校正定位误差。</p>
+              <ol class="intro-method-list"><li><strong>目标定位：</strong>给定相机图像与楼层号，由 Qwen3-VL-30B-A3B 输出目标按钮的边界框。</li><li><strong>坐标转换：</strong>结合 RealSense 深度与手眼标定，将目标位置从相机坐标系转换到机械臂基座坐标系。</li><li><strong>闭环执行：</strong>机械臂先悬停，再通过模板匹配校正位置，误差满足条件后执行按压。</li></ol>
+            </article>
+            <article class="intro-project engineering-topic">
+              <div class="intro-project-heading"><h3>机械臂配合底盘开门：模仿学习与 PPO</h3><p>仿真验证</p></div>
+              <ol class="intro-method-list"><li><strong>轨迹合成：</strong>在 Isaac Sim 中根据门把手位置、旋转轴与开门角度，生成机械臂和底盘的协同轨迹，保存为 LeRobot 格式。</li><li><strong>策略训练：</strong>以 ACT 做模仿学习，改造输出以预测动作均值与方差，再用 PPO 和稀疏二值奖励优化策略。</li><li><strong>评估范围：</strong>在不同形状和材质的门上开展仿真评估，尚未进行真机验证。</li></ol>
+            </article>
           </section>
 
           <section class="intro-section" id="open-source" aria-labelledby="open-source-title">
