@@ -49,6 +49,10 @@
 .project-brief dt { color: var(--muted); font-size: 14px; padding-top: 2px; }
 .project-brief dd { margin: 0; }
 .intro-section .intro-context { color: var(--muted); font-size: 15px; }
+.intro-section .internship-employer { color: var(--heading); font: 650 17px/1.5 var(--font-sans); }
+.internship-track { margin-top: 28px; scroll-margin-top: 28px; }
+.internship-track + .internship-track { margin-top: 42px; padding-top: 28px; border-top: 1px solid var(--line); }
+.intro-section .internship-track .engineering-topic h4 { margin: 0 0 10px; }
 .intro-section .intro-method-note { color: var(--heading); font-size: 14px; }
 .intro-research-figure { background: #fff; border: 1px solid var(--line); border-radius: 2px; padding: 18px; margin: 27px 0 20px; }
 .intro-research-figure img { width: 100%; max-height: 330px; object-fit: contain; }
@@ -166,7 +170,7 @@
   .intro-contents { padding: 20px 0; margin-bottom: 22px; border-bottom: 1px solid var(--line); }
   .intro-contents nav { position: static; display: flex; flex-wrap: wrap; gap: 5px 20px; }
   .intro-contents a { padding: 2px 0; }
-  .intro-contents .intro-subnav { padding: 2px 0; }
+  .intro-contents .intro-subnav { padding: 2px 0 2px 12px; }
   .intro-contents a span { display: none; }
 }
 @media (max-width: 520px) {

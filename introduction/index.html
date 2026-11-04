@@ -31,7 +31,24 @@
       </header>
 
       <div class="intro-layout">
-        <aside class="intro-contents"><nav aria-label="内容导航"><a href="#background"><span>01</span> 教育背景</a><a href="#research"><span>02</span> 研究工作</a><a class="intro-subnav" href="#aware">AWARe</a><a class="intro-subnav" href="#omnikey">OmniKey</a><a href="#internship"><span>03</span> 训练与推理实践</a><a href="#robotics"><span>04</span> 具身智能实践</a><a href="#open-source"><span>05</span> 开源贡献</a><a href="#engineering"><span>06</span> 工程基础</a><a href="#skills"><span>07</span> 专业技能</a></nav></aside>
+        <aside class="intro-contents">
+          <nav aria-label="内容导航">
+            <a href="#background"><span>01</span> 教育背景</a>
+            <div class="intro-nav-group">
+              <a href="#research"><span>02</span> 研究工作</a>
+              <a class="intro-subnav" href="#aware">AWARe</a>
+              <a class="intro-subnav" href="#omnikey">OmniKey</a>
+            </div>
+            <div class="intro-nav-group">
+              <a href="#internship"><span>03</span> 实习经历</a>
+              <a class="intro-subnav" href="#training-inference">训练与推理实践</a>
+              <a class="intro-subnav" href="#robotics">具身智能实践</a>
+            </div>
+            <a href="#open-source"><span>04</span> 开源贡献</a>
+            <a href="#engineering"><span>05</span> 工程基础</a>
+            <a href="#skills"><span>06</span> 专业技能</a>
+          </nav>
+        </aside>
 
         <div class="intro-body">
           <section class="intro-section" id="background" aria-labelledby="background-title">
@@ -177,55 +194,62 @@
           </section>
 
           <section class="intro-section" id="internship" aria-labelledby="internship-title">
-            <div class="intro-section-heading"><span aria-hidden="true">03</span><h2 id="internship-title">训练与推理工程</h2></div>
-            <div class="employer-heading"><img class="company-logo" src="../assets/uniubi-logo.svg" width="94" height="20" alt="Uni-Ubi 公司标志" loading="lazy"><div class="intro-project-heading"><h3>宇泛智能（Uni-Ubi）· 算法实习生</h3><p>2025.04 – 至今</p></div></div>
-            <p class="intro-context">面向工地安全检测，开展视觉语言模型后训练、视频强化学习链路适配与低精度推理部署。</p>
-            <dl class="intro-results intro-results--engineering">
-              <div><dt>项目内 Judge 评分</dt><dd>0.50 → 0.75</dd></div>
-              <div><dt>NVFP4 吞吐率（相对 FP8）</dt><dd>约 1.5×</dd></div>
-              <div><dt>NVFP4 显存降幅（相对 FP8）</dt><dd>30%–40%</dd></div>
-            </dl>
-            <p class="intro-evidence-note">以上均为项目内测试近似值。Judge 评分用于评价项目模型输出；量化对比中，模型效果基本保持。</p>
+            <div class="intro-section-heading"><span aria-hidden="true">03</span><h2 id="internship-title">实习经历</h2></div>
+            <header class="employer-heading">
+              <img class="company-logo" src="../assets/uniubi-logo.svg" width="94" height="20" alt="Uni-Ubi 公司标志" loading="lazy">
+              <div class="intro-project-heading"><p class="internship-employer">宇泛智能（Uni-Ubi）· 算法实习生</p><p>2025.04 – 至今</p></div>
+            </header>
 
-            <article class="intro-project engineering-topic" id="internship-post-training">
-              <h3>多模态后训练与视频 Rollout</h3>
-              <p><strong>从 SFT 到 GRPO。</strong>用 LLaMA-Factory 对 Qwen2.5-VL 和 MiMo-VL-7B 做监督微调，适配工地安全检测的视觉理解任务。以 SFT 模型为起点，使用项目提供的约 1 万条数据在 verl 中做 GRPO，接入 LLM-as-a-Judge 奖励评分。</p>
-              <p><strong>打通视频 Rollout。</strong>定位到视频元数据未随请求传入 vLLM，导致生成阶段报错；补齐元数据传递，并将 <code>image_patch_size</code> 改为可配置，适配 Qwen2.5-VL 与 Qwen3-VL 的预处理差异。另修复了 GLM-4.1V 在 verl GRPO 中的模型加载和检查点映射兼容问题。</p>
-              <div class="engineering-links"><a href="https://github.com/volcengine/verl/pull/3928">verl #3928 · 已合并 ↗</a><a href="https://github.com/huggingface/transformers/pull/39199">Transformers #39199 · 已合并 ↗</a></div>
-            </article>
+            <section class="internship-track" id="training-inference" aria-labelledby="training-inference-title">
+              <h3 id="training-inference-title">训练与推理实践</h3>
+              <p class="intro-context">面向工地安全检测，开展视觉语言模型后训练、视频强化学习链路适配与低精度推理部署。</p>
+              <dl class="intro-results intro-results--engineering">
+                <div><dt>项目内 Judge 评分</dt><dd>0.50 → 0.75</dd></div>
+                <div><dt>NVFP4 吞吐率（相对 FP8）</dt><dd>约 1.5×</dd></div>
+                <div><dt>NVFP4 显存降幅（相对 FP8）</dt><dd>30%–40%</dd></div>
+              </dl>
+              <p class="intro-evidence-note">以上均为项目内测试近似值。Judge 评分用于评价项目模型输出；量化对比中，模型效果基本保持。</p>
 
-            <article class="intro-project engineering-topic" id="internship-quantization">
-              <h3>低精度部署与推理算子适配</h3>
-              <p><strong>项目部署。</strong>定位并修复早期 vLLM 的 NVFP4 支持缺陷，跑通模型量化后的加载与推理。项目内对比 FP8 时，NVFP4 在模型效果基本保持的情况下提高吞吐、减少显存占用，为 KV Cache 和更长上下文留出空间。</p>
-              <p><strong>相关开源工作。</strong>为 NVIDIA Blackwell 消费级显卡（sm120）补齐 vLLM 和 SGLang 的 CUTLASS FP8 GEMM 路径，并在 RTX 5070 Ti 上验证 vLLM 可运行 Qwen2.5-VL-7B 的 FP8-Dynamic 版本。另在 SGLang 提出修复视觉 QKV 层名称不匹配导致量化忽略规则失效的问题。</p>
-              <div class="engineering-links"><a href="https://github.com/vllm-project/vllm/pull/17280">vLLM #17280 · 已合并 ↗</a><a href="https://github.com/sgl-project/sglang/pull/9403">SGLang #9403 · 已合并 ↗</a><a href="https://github.com/sgl-project/sglang/pull/9596">SGLang #9596 · 修复提案 ↗</a></div>
-            </article>
-          </section>
+              <article class="intro-project engineering-topic" id="internship-post-training">
+                <h4>多模态后训练与视频 Rollout</h4>
+                <p><strong>从 SFT 到 GRPO。</strong>用 LLaMA-Factory 对 Qwen2.5-VL 和 MiMo-VL-7B 做监督微调，适配工地安全检测的视觉理解任务。以 SFT 模型为起点，使用项目提供的约 1 万条数据在 verl 中做 GRPO，接入 LLM-as-a-Judge 奖励评分。</p>
+                <p><strong>打通视频 Rollout。</strong>定位到视频元数据未随请求传入 vLLM，导致生成阶段报错；补齐元数据传递，并将 <code>image_patch_size</code> 改为可配置，适配 Qwen2.5-VL 与 Qwen3-VL 的预处理差异。另修复了 GLM-4.1V 在 verl GRPO 中的模型加载和检查点映射兼容问题。</p>
+                <div class="engineering-links"><a href="https://github.com/volcengine/verl/pull/3928">verl #3928 · 已合并 ↗</a><a href="https://github.com/huggingface/transformers/pull/39199">Transformers #39199 · 已合并 ↗</a></div>
+              </article>
 
-          <section class="intro-section" id="robotics" aria-labelledby="robotics-title">
-            <div class="intro-section-heading"><span aria-hidden="true">04</span><h2 id="robotics-title">具身智能实践</h2></div>
-            <p class="intro-context">三个项目分别覆盖 VLA 真机部署、视觉定位闭环和仿真策略训练。</p>
-            <dl class="intro-results intro-results--pair">
-              <div><dt>π0.5 真机抓取与放置示教</dt><dd>50<span>条</span></dd></div>
-              <div><dt>机械臂与底盘协同开门 · 仿真成功率</dt><dd>约 85%</dd></div>
-            </dl>
-            <article class="intro-project engineering-topic">
-              <div class="intro-project-heading"><h3>π0.5 在松灵 nero 机械臂上的部署</h3><p>真机部署</p></div>
-              <p>用主从臂采集抓取与放置示教数据，完成训练环境搭建、π0.5 模型训练和机械臂推理部署，并在同一机械臂上开展泛化验证。</p>
-            </article>
-            <article class="intro-project engineering-topic">
-              <h3>机械臂按电梯按钮：视觉定位与闭环校正</h3>
-              <p>按压需要把图像里的按钮位置转成机械臂可执行的目标坐标，并在接触前校正定位误差。</p>
-              <ol class="intro-method-list"><li><strong>目标定位：</strong>给定相机图像与楼层号，由 Qwen3-VL-30B-A3B 输出目标按钮的边界框。</li><li><strong>坐标转换：</strong>结合 RealSense 深度与手眼标定，将目标位置从相机坐标系转换到机械臂基座坐标系。</li><li><strong>闭环执行：</strong>机械臂先悬停，再通过模板匹配校正位置，误差满足条件后执行按压。</li></ol>
-            </article>
-            <article class="intro-project engineering-topic">
-              <div class="intro-project-heading"><h3>机械臂配合底盘开门：模仿学习与 PPO</h3><p>仿真验证</p></div>
-              <ol class="intro-method-list"><li><strong>轨迹合成：</strong>在 Isaac Sim 中根据门把手位置、旋转轴与开门角度，生成机械臂和底盘的协同轨迹，保存为 LeRobot 格式。</li><li><strong>策略训练：</strong>以 ACT 做模仿学习，改造输出以预测动作均值与方差，再用 PPO 和稀疏二值奖励优化策略。</li><li><strong>评估范围：</strong>在不同形状和材质的门上开展仿真评估，尚未进行真机验证。</li></ol>
-            </article>
+              <article class="intro-project engineering-topic" id="internship-quantization">
+                <h4>低精度部署与推理算子适配</h4>
+                <p><strong>项目部署。</strong>定位并修复早期 vLLM 的 NVFP4 支持缺陷，跑通模型量化后的加载与推理。项目内对比 FP8 时，NVFP4 在模型效果基本保持的情况下提高吞吐、减少显存占用，为 KV Cache 和更长上下文留出空间。</p>
+                <p><strong>相关开源工作。</strong>为 NVIDIA Blackwell 消费级显卡（sm120）补齐 vLLM 和 SGLang 的 CUTLASS FP8 GEMM 路径，并在 RTX 5070 Ti 上验证 vLLM 可运行 Qwen2.5-VL-7B 的 FP8-Dynamic 版本。另在 SGLang 提出修复视觉 QKV 层名称不匹配导致量化忽略规则失效的问题。</p>
+                <div class="engineering-links"><a href="https://github.com/vllm-project/vllm/pull/17280">vLLM #17280 · 已合并 ↗</a><a href="https://github.com/sgl-project/sglang/pull/9403">SGLang #9403 · 已合并 ↗</a><a href="https://github.com/sgl-project/sglang/pull/9596">SGLang #9596 · 修复提案 ↗</a></div>
+              </article>
+            </section>
+
+            <section class="internship-track" id="robotics" aria-labelledby="robotics-title">
+              <h3 id="robotics-title">具身智能实践</h3>
+              <p class="intro-context">三个项目分别覆盖 VLA 真机部署、视觉定位闭环和仿真策略训练。</p>
+              <dl class="intro-results intro-results--pair">
+                <div><dt>π0.5 真机抓取与放置示教</dt><dd>50<span>条</span></dd></div>
+                <div><dt>机械臂与底盘协同开门 · 仿真成功率</dt><dd>约 85%</dd></div>
+              </dl>
+              <article class="intro-project engineering-topic">
+                <div class="intro-project-heading"><h4>π0.5 在松灵 nero 机械臂上的部署</h4><p>真机部署</p></div>
+                <p>用主从臂采集抓取与放置示教数据，完成训练环境搭建、π0.5 模型训练和机械臂推理部署，并在同一机械臂上开展泛化验证。</p>
+              </article>
+              <article class="intro-project engineering-topic">
+                <h4>机械臂按电梯按钮：视觉定位与闭环校正</h4>
+                <p>按压需要把图像里的按钮位置转成机械臂可执行的目标坐标，并在接触前校正定位误差。</p>
+                <ol class="intro-method-list"><li><strong>目标定位：</strong>给定相机图像与楼层号，由 Qwen3-VL-30B-A3B 输出目标按钮的边界框。</li><li><strong>坐标转换：</strong>结合 RealSense 深度与手眼标定，将目标位置从相机坐标系转换到机械臂基座坐标系。</li><li><strong>闭环执行：</strong>机械臂先悬停，再通过模板匹配校正位置，误差满足条件后执行按压。</li></ol>
+              </article>
+              <article class="intro-project engineering-topic">
+                <div class="intro-project-heading"><h4>机械臂配合底盘开门：模仿学习与 PPO</h4><p>仿真验证</p></div>
+                <ol class="intro-method-list"><li><strong>轨迹合成：</strong>在 Isaac Sim 中根据门把手位置、旋转轴与开门角度，生成机械臂和底盘的协同轨迹，保存为 LeRobot 格式。</li><li><strong>策略训练：</strong>以 ACT 做模仿学习，改造输出以预测动作均值与方差，再用 PPO 和稀疏二值奖励优化策略。</li><li><strong>评估范围：</strong>在不同形状和材质的门上开展仿真评估，尚未进行真机验证。</li></ol>
+              </article>
+            </section>
           </section>
 
           <section class="intro-section" id="open-source" aria-labelledby="open-source-title">
-            <div class="intro-section-heading"><span aria-hidden="true">05</span><h2 id="open-source-title">开源贡献</h2></div>
+            <div class="intro-section-heading"><span aria-hidden="true">04</span><h2 id="open-source-title">开源贡献</h2></div>
             <div class="intro-contributions">
               <article>
                 <div class="intro-contribution-repo"><h3>vLLM <a href="https://github.com/vllm-project/vllm/pull/17280">#17280 ↗</a></h3><span class="intro-pr-status">已合并</span></div>
@@ -276,7 +300,7 @@
           </section>
 
           <section class="intro-section" id="engineering" aria-labelledby="engineering-title">
-            <div class="intro-section-heading"><span aria-hidden="true">06</span><h2 id="engineering-title">工程项目与系统基础</h2></div>
+            <div class="intro-section-heading"><span aria-hidden="true">05</span><h2 id="engineering-title">工程项目与系统基础</h2></div>
             <article class="intro-project"><div class="intro-project-heading"><h3>TinyChat LLMs 部署</h3><p>2025.02 – 2025.04</p></div><ul><li>通过循环重排、SIMD 和并行化优化 matmul。</li><li>学习 RoPE、RMSNorm、GQA 的 C++ 实现，实现 4 bit 线性量化与矩阵乘法。</li><li>学习 AWQ、SmoothQuant 等量化算法。</li></ul></article>
             <article class="intro-project"><div class="intro-project-heading"><h3>needle 深度学习框架开发</h3><p>2024.07 – 2024.08</p></div><ul><li>在计算图上实现反向模式自动微分。</li><li>实现初始化、优化器、常用网络和 DataLoader。</li><li>用 CUDA 实现 NDArray 及 reshape、transpose、multiply 等基础运算。</li></ul></article>
             <article class="intro-project"><div class="intro-project-heading"><h3>基于 Jetson 的自动驾驶无人车</h3><p>2023.11 – 2024.02</p></div><ul><li>STM32F407、FreeRTOS：底盘开发与 CAN 协议并发解析、反馈。</li><li>Jetson AGX Xavier：Linux 环境下的 CAN 数据处理。</li><li>RealSense、ROS 2：视觉 SLAM、3D 重构与自主导航。</li></ul></article>
@@ -285,7 +309,7 @@
           </section>
 
           <section class="intro-section" id="skills" aria-labelledby="skills-title">
-            <div class="intro-section-heading"><span aria-hidden="true">07</span><h2 id="skills-title">专业技能</h2></div>
+            <div class="intro-section-heading"><span aria-hidden="true">06</span><h2 id="skills-title">专业技能</h2></div>
             <dl class="intro-skills"><dt>编程与开发</dt><dd>熟悉现代 Python 开发，使用 uv 管理项目与依赖、Ruff 进行检查和格式化；了解 C / C++。</dd><dt>模型训练与推理</dt><dd>使用 LLaMA Factory、VeRL 进行模型训练，使用 vLLM、SGLang 进行模型推理。</dd><dt>算子与效率优化</dt><dd>有 Triton 算子开发经验，了解 CUDA 编程，熟悉 FlashAttention 算子原理。</dd><dt>机器人系统</dt><dd>熟悉 ROS 2 开发与集成，涉及导航、感知和控制。</dd><dt>工程工具</dt><dd>使用 Git、Docker 管理项目，使用 LaTeX 编写文档，并使用 Codex、Claude Code 辅助开发。</dd></dl>
           </section>
         </div>
