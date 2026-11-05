@@ -165,6 +165,11 @@
                   </div>
                   <figcaption><strong>Figure 2 · When and where to compress?</strong> 左、中图展示表征生命周期，右图展示时间片段间的对齐差异。TME 越低，主导谱能量越集中；曲线沿层深标准化，热图在每层内按片段标准化，颜色仅表示相对差异。<span class="figure-zoom-hint">点击各子图放大 ↗</span></figcaption>
                 </figure>
+                <div class="research-equation-update" id="omnikey-tme">
+                  <p class="research-equation-label">Truncated matrix entropy · Eq. (7)</p>
+                  <div class="math-display" data-math="display">\begin{aligned}p_i&amp;=\frac{\lambda_i}{\sum_{j=1}^{k}\lambda_j},\\ H_k(Z)&amp;=-\frac{1}{\log k}\sum_{i=1}^{k}p_i\log(p_i+\epsilon).\end{aligned}</div>
+                  <p class="research-equation-description">Z 是某层、某个样本的一种模态的隐藏状态矩阵；对未中心化的 Gram 矩阵取前 k 个最大特征值 λ，归一化为 p 后计算谱熵。H 越低，主导谱能量越集中。对标定样本取平均，得到该模态随层深的 TME 曲线。</p>
+                </div>
                 <p class="intro-evidence-note">TME 用于离线规划阶段。同一骨干与预算配置使用固定层调度，在线选择随当前样本变化，无需每次输入都重新进行谱分解。</p>
               </div>
 
@@ -176,10 +181,11 @@
                   <li><strong>中层渐进选择。</strong>先按视听 Key 的对齐程度分配 chunk 预算，再按 Key 范数倒数选择片段内的 Token，在多个层逐步缩短序列。</li>
                   <li><strong>深层视听退出。</strong>达到预设退出层后移除剩余视听状态，后续解码层仅处理文本，继续推理与答案生成。</li>
                 </ol>
-                <div id="omnikey-equations" class="research-equations research-equations--pair" role="group" aria-label="Key 对齐预算分配与片段内 Token 排序的核心公式">
+                <div id="omnikey-equations" class="research-equations research-equations--pair" role="group" aria-label="Key 对齐预算分配与片段内 Token 选择的核心公式">
                   <div class="research-equation-step"><p class="research-equation-label">Temporal budget · Eq. (15)</p><div class="math-display" data-math="display">w_{\ell,t}=\frac{\exp(q_{\ell,t}/\tau)}{\sum_u\exp(q_{\ell,u}/\tau)}</div><p class="research-equation-description"><span data-math="inline">q_{\ell,t}</span> 是第 ℓ 层、片段 t 的视听对齐分数：每个头内分别求音频、视频平均 Key 的余弦相似度，再跨头平均。温度 τ 控制预算权重的集中程度；高对齐片段分配更多保留预算。</p></div>
-                  <div class="research-equation-step"><p class="research-equation-label">Within-chunk ranking · Eq. (18)</p><div class="math-display" data-math="display">s_{\ell,i}=\frac{1}{\lVert K_{\ell,i}\rVert_2+\epsilon}</div><p class="research-equation-description">将 Token 各头的 Key 拼接后，以其 L2 范数倒数评分，在每个 chunk 的预算内保留高分 Token。诊断实验中 Key 范数与注意力显著性的负相关，为这一低成本排序提供了经验依据。</p></div>
+                  <div class="research-equation-step" id="omnikey-token-selection"><p class="research-equation-label">Token scoring &amp; pruning · Eqs. (18)–(19)</p><div class="math-display" data-math="display">\begin{aligned}s_{\ell,i}&amp;=\frac{1}{\lVert K_{\ell,i}\rVert_2+\epsilon},\\ I_{\ell,t}&amp;=\underset{i\in C_{\ell,t}}{\operatorname{TopK}}\!\left(s_{\ell,i},M_{\ell,t}\right).\end{aligned}</div><p class="research-equation-description">K 是 Token 各头拼接后的 Key，s 是范数倒数评分。对第 ℓ 层的时间片段 C，Top-K 返回分数最高的 M 个 Token 的索引 I；保留它们、剪去其余视听 Token，文本 Token 继续保留。诊断中的负相关现象支持这一排序代理。</p></div>
                 </div>
+                <p class="intro-evidence-note">各片段预算 M 由左侧对齐权重分配，受片段容量约束，且总和等于该层的保留预算。ε 为防止数值不稳定的小常数；中层按预定层调度渐进筛选，深层退出时移除剩余视听 Token。</p>
                 <p class="research-takeaway">无需训练；在线选择复用前向已计算的 Key，无需额外展开注意力概率矩阵，兼容 FlashAttention。</p>
               </div>
 
