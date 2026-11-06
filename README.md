@@ -38,7 +38,7 @@ git diff --check
 - `assets/introduction.css`: presentation page layout.
 - `assets/site.js`: enlarged research figures, BibTeX copy, navigation, and CV printing.
 - `assets/portrait.js`: a Canvas particle transition between the cat avatar and portrait, using their original image colors. Repeated clicks reverse the current transition. Resizing or leaving the page settles it immediately; reduced-motion preferences use a direct switch. It runs only on the homepage and requires no library or backend.
-- `files/`: AWARe paper, method figure PDF, and the supplied arXiv BibTeX entry.
+- `files/`: AWARe paper, method figure PDF, and the EMNLP proceedings BibTeX entry.
 - `scripts/`: dependency-free build and local preview server.
 
 Legacy `/about/`, `/about.html`, `/publications/`, and `/resume/` addresses remain available as redirects. AWARe keeps its existing publication URL.

@@ -79,15 +79,28 @@ if (navigation.length && 'IntersectionObserver' in window) {
 document.querySelector('[data-print]')?.addEventListener('click', () => window.print());
 
 const citations = {
-  aware: `@misc{liao2026aware,
-  title = {AWARe: Mitigating Catastrophic Forgetting via Activation-Weighted Adaptive REtention},
-  author = {Juncheng Liao and Jinfan Lv and Guoming Wang and Jupeng Zheng and Ling Xiao and Siliang Tang},
-  year = {2026},
-  eprint = {2608.11758},
-  archivePrefix = {arXiv},
-  primaryClass = {cs.CL},
-  doi = {10.48550/arXiv.2608.11758},
-  url = {https://arxiv.org/abs/2608.11758},
+  aware: `@inproceedings{liao-etal-2026-aware,
+    title = "{AWAR}e: Mitigating Catastrophic Forgetting via Activation-Weighted Adaptive {RE}tention",
+    author = "Liao, Juncheng  and
+      Lv, Jinfan  and
+      Wang, Guoming  and
+      Zheng, Juepeng  and
+      Xiao, Ling  and
+      Tang, Siliang",
+    editor = "Lee, Hung-Yi  and
+      Dev, Sunipa  and
+      Li, Junyi Jessy  and
+      Elliott, Desmond",
+    booktitle = "Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing",
+    month = oct,
+    year = "2026",
+    address = "Budapest, Hungary",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2026.emnlp-main.604/",
+    doi = "10.18653/2026.emnlp-main.604",
+    pages = "13928--13944",
+    ISBN = "979-8-89176-459-0",
+    abstract = "Multimodal Large Language Models (MLLMs) exhibit strong generalization and reasoning abilities due to large-scale multimodal pre-training. However, fine-tuning these models on downstream tasks often leads to catastrophic forgetting, where newly learned task-specific knowledge degrades previously acquired capabilities. This issue arises because gradient updates for new tasks overwrite parameters critical to prior knowledge, limiting the practical deployment of MLLMs. To address this challenge, we propose **Activation-Weighted Adaptive REtention (AWARe)**, a fine-tuning method that mitigates catastrophic forgetting by dynamically controlling parameter updates based on activation patterns. AWARe assigns activation-based importance scores to parameters, selectively freezing those essential for preserving prior capabilities while allowing less important parameters to adapt to new tasks. Importantly, AWARe operates without modifying model architectures, ensuring compatibility with existing inference engines. Extensive experiments demonstrate that AWARe effectively preserves upstream capabilities while achieving superior downstream performance compared to existing methods. Code is available at https://github.com/kaln27/AWARe."
 }`
 };
 
