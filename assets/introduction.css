@@ -9,6 +9,7 @@
 .intro-header h1 span { display: inline-block; font-size: 18px; font-weight: 400; letter-spacing: .01em; margin-left: 14px; color: var(--muted); }
 .intro-affiliation { color: var(--muted); font-size: 15px; margin-bottom: 9px; }
 .intro-focus { color: var(--heading); font-size: 22px; font-weight: 500; margin-bottom: 14px; }
+.intro-focus a { color: var(--accent); }
 .intro-highlights { list-style: none; padding: 0; margin: 0; }
 .intro-highlights li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 17px; font-size: 14px; line-height: 1.8; margin: 4px 0; }
 .intro-highlights strong { width: 65px; font-weight: 600; }
@@ -53,6 +54,19 @@
 .internship-track { margin-top: 28px; scroll-margin-top: 28px; }
 .internship-track + .internship-track { margin-top: 42px; padding-top: 28px; border-top: 1px solid var(--line); }
 .intro-section .internship-track .engineering-topic h4 { margin: 0 0 10px; }
+.post-training-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 21px; scroll-margin-top: 28px; }
+.post-training-card { display: flex; flex-direction: column; min-width: 0; padding: 19px 22px; border: 1px solid var(--line); background: var(--surface); }
+.intro-section .post-training-card h4 { margin: 0; font-size: 18px; }
+.intro-section .post-training-card p { font-size: 16px; line-height: 1.75; }
+.intro-section .post-training-card .post-training-model { color: var(--muted); font: 500 13px/1.6 var(--font-sans); overflow-wrap: anywhere; }
+.post-training-scores { display: flex; flex-wrap: wrap; gap: 8px 24px; margin: auto 0 0; padding-top: 12px; border-top: 1px solid var(--line); font-family: var(--font-sans); }
+.post-training-scores dt { color: var(--muted); font-size: 12px; }
+.post-training-scores dd { margin: 0; color: var(--accent); font-size: 24px; line-height: 1.45; font-variant-numeric: tabular-nums; }
+.post-training-note { margin-top: 10px; }
+@media (max-width: 700px) {
+  .post-training-grid { grid-template-columns: 1fr; gap: 12px; }
+  .post-training-card { padding: 16px 18px; }
+}
 .intro-section .intro-method-note { color: var(--heading); font-size: 14px; }
 .intro-research-figure { background: #fff; border: 1px solid var(--line); border-radius: 2px; padding: 18px; margin: 27px 0 20px; }
 .intro-research-figure img { width: 100%; max-height: 330px; object-fit: contain; }
@@ -62,14 +76,9 @@
 .intro-method-list li::marker { color: var(--muted); font-size: 12px; }
 .intro-results { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); padding: 18px 0; margin: 22px 0 13px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); gap: 16px; }
 .intro-results--pair { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.intro-results.intro-results--engineering { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .engineering-topic > p, .engineering-topic > ol { max-width: 43em; }
 .engineering-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
 .engineering-links a { padding: 3px 9px; border: 1px solid var(--line); border-radius: 4px; font: 500 12px/1.7 var(--font-sans); }
-@media (max-width: 520px) {
-  .intro-results.intro-results--engineering { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .intro-results--engineering > div:first-child { grid-column: 1 / -1; }
-}
 .intro-results dt { color: var(--muted); font-size: 13px; }
 .intro-results dd { margin: 4px 0 0; font-size: 32px; font-weight: 500; line-height: 1.5; color: var(--heading); font-variant-numeric: tabular-nums; }
 .intro-results dd span { font-size: 12px; margin-left: 3px; font-weight: 400; }
